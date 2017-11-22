@@ -14,5 +14,5 @@ COMMAND="scripts/convertdocx.sh $1"
 exec docker run --rm -it \
   -v "$PWD":"$PWD" --workdir "$PWD" \
   ${DOCKER_RUN_ARGS} \
-  -e "LOCAL_USER_ID=$(id -u)" \
+  -e "LOCAL_USER_ID=1000" \
   ${DOC_IMG} ${COMMAND}
