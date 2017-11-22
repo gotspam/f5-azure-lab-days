@@ -1,5 +1,5 @@
-Lab – Install a |f5| |bip| Appliance
-------------------------------------
+Lab 3 – Install a |f5| |bip| Appliance
+--------------------------------------
 
 .. TODO:: Needs lab description
 

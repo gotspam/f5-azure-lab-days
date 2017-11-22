@@ -1,5 +1,5 @@
-Module – Deploy an F5 BIG-IP active/active HA pair using ARM templates
-======================================
+Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates
+========================================================================
 
 .. TODO:: Needs module description
 

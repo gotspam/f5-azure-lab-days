@@ -1,20 +1,12 @@
-Module – Deploying an F5 Web Application Firewall Using the Azure Security Center
-======================================
+Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center
+===================================================================================
 
-.. TODO:: Needs module description
-
-F5 offers on-demand Layer7 Application Firewall (Web Application
-Firewall) protection through a simplified setup of just a few clicks.
-This WAF offering is integrated in Azure Security Center.
-
-In this lab, you will complete the following steps:
-
--  Setup WordPress in Azure
-
--  Use Azure Security Center to deploy the pre-configured F5 WAF and
-   secure access to WordPress
-
--  Demonstrate F5 WAF functionality and finalize the WAF deployment
+F5 offers on-demand Layer 7 Web Application Firewall (WAF)
+protection through a simplified setup of just a few clicks.
+This WAF offering is integrated in Azure Security Center and will
+assist in the automation of F5 WAF deployment and protection of your
+applications. In this lab, you will create a WordPress server and
+protect it with the F5 WAF.
 
 .. toctree::
    :maxdepth: 1

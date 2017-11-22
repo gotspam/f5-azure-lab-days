@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.2.1. Lab – Install a F5 Networks BIG-IP Appliance &#8212; Azure F5 Lab Days  documentation</title>
+    <title>2.2.1. Lab 2 – Deploying an F5 Web Application Firewall using the Azure Security Center &#8212; Azure F5 Lab Days  documentation</title>
     
     <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.2.2. Lab – Power-on the BIG-IP Appliance" href="lab2.html" />
-    <link rel="prev" title="2.2. Module – Installing a BIG-IP Appliance" href="module2.html" />
+    <link rel="next" title="2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates" href="../module3/module3.html" />
+    <link rel="prev" title="2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center" href="module2.html" />
 <!--
 # Copyright 2017 F5 Networks
 #
@@ -212,11 +212,14 @@
    <span class="caption-text">Current Page</span>
   </p>
   <ul>
-<li><a class="reference internal" href="#">2.2.1. Lab – Install a F5 Networks BIG-IP Appliance</a><ul>
-<li><a class="reference internal" href="#task-unpack-the-bip-appliance">2.2.1.1. Task – Unpack the BIG-IP Appliance</a></li>
-<li><a class="reference internal" href="#task-install-the-bip-appliance-in-a-datacenter-rack">2.2.1.2. Task – Install the BIG-IP Appliance in a Datacenter Rack</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">2.2.1. Lab 2 – Deploying an F5 Web Application Firewall using the Azure Security Center</a></li>
+<li><a class="reference internal" href="#task-1-setup-basic-cloud-components-in-azure">2.2.2. Task 1 - Setup basic cloud components in Azure</a></li>
+<li><a class="reference internal" href="#task-2-deploy-and-configure-wordpress-within-azure">2.2.3. Task 2 - Deploy and configure WordPress within Azure</a></li>
+<li><a class="reference internal" href="#task-3-access-wordpress-instance-and-launch-a-sql-injection-attack">2.2.4. Task 3 - Access WordPress instance and launch a SQL Injection attack</a></li>
+<li><a class="reference internal" href="#task-4-accept-eula-for-f5-waf-in-azure-marketplace">2.2.5. Task 4 - Accept EULA for F5 WAF in Azure Marketplace</a></li>
+<li><a class="reference internal" href="#task-5-launch-azure-security-center-and-deploy-the-f5-waf">2.2.6. Task 5 - Launch Azure Security Center and deploy the F5 WAF</a></li>
+<li><a class="reference internal" href="#task-6-demonstrate-f5-waf-blocking-functionality">2.2.7. Task 6 - Demonstrate F5 WAF blocking functionality</a></li>
+<li><a class="reference internal" href="#task-7-finalize-the-waf-deployment">2.2.8. Task 7 - Finalize the WAF Deployment</a></li>
 </ul>
 
 
@@ -224,8 +227,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class1.html">2. Class - Azure F5 Lab Days</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module – Installing a BIG-IP Virtual Edition</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="module2.html">2.2. Module – Installing a BIG-IP Appliance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="module2.html">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">3. Examples of Common Formatting</a></li>
@@ -234,10 +238,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="module2.html"
-                        title="previous chapter">2.2. Module – Installing a BIG-IP Appliance</a></p>
+                        title="previous chapter">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="lab2.html"
-                        title="next chapter">2.2.2. Lab – Power-on the BIG-IP Appliance</a></p>
+  <p class="topless"><a href="../module3/module3.html"
+                        title="next chapter">2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates</a></p>
         
       </div>
       <div class="col-md-offset-3 col-sm-offset-3 main">
@@ -246,61 +250,545 @@
           <span class="right"><a href="../../genindex.html">Index</a></span>
         </h4>
         
-  <div class="section" id="lab-install-a-f5-bip-appliance">
-<h1>2.2.1. Lab – Install a F5 Networks BIG-IP Appliance<a class="headerlink" href="#lab-install-a-f5-bip-appliance" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs lab description</p>
+  <div class="section" id="lab-2-deploying-an-f5-web-application-firewall-using-the-azure-security-center">
+<h1>2.2.1. Lab 2 – Deploying an F5 Web Application Firewall using the Azure Security Center<a class="headerlink" href="#lab-2-deploying-an-f5-web-application-firewall-using-the-azure-security-center" title="Permalink to this headline">¶</a></h1>
+<p>This lab will teach you how to deploy a WordPress server in Azure and protect
+the application with an F5 WAF via the Azure Security Center (ASC). The ASC
+will automatically discover vulnerabilities within your Azure resources. Things
+like publicly accessible IPs listening on HTTP and HTTPS will be flagged in
+ASC and marked for review. The customer can take action which can include
+deployment of a WAF. Therefore, we’ll expose a WordPress server and let
+ASC find the problem for us. After a few questions and answers, a WAF will be
+deployed automatically.</p>
 </div>
-<p>In this lab we will unpack and install the BIG-IP Appliance into a rack in your
-datacenter.</p>
-<div class="section" id="task-unpack-the-bip-appliance">
-<h2>2.2.1.1. Task – Unpack the BIG-IP Appliance<a class="headerlink" href="#task-unpack-the-bip-appliance" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs task description</p>
-</div>
-<p>In this task you will remove the BIG-IP Appliance from it’s packaging.</p>
-<p>Follow these steps to complete this task:</p>
+<div class="section" id="task-1-setup-basic-cloud-components-in-azure">
+<h1>2.2.2. Task 1 - Setup basic cloud components in Azure<a class="headerlink" href="#task-1-setup-basic-cloud-components-in-azure" title="Permalink to this headline">¶</a></h1>
+<p>Basic cloud components are needed first. Things like Virtual Networks and
+Resource Groups are required prior to deployment of virtual machines.
+You will configure these items in preparation for the WordPress
+deployment.</p>
 <ol class="arabic">
-<li><p class="first">Open the box with an extremely sharp knife or cutter</p>
-<div class="admonition danger">
-<p class="first admonition-title">Danger</p>
-<p>Knives are sharp and can cut you.  Please be careful.</p>
-<p class="last"><img alt="knivessharp" src="http://theinkkitchen.com/wp-content/uploads/2014/08/Screenshot-2014-07-30-12.22.44.png" /></p>
-</div>
+<li><p class="first">Log into the Microsoft Azure Portal – <a class="reference external" href="https://portal.azure.com">https://portal.azure.com</a></p>
 </li>
-<li><p class="first">Carefully remove the BIG-IP from it’s packaging</p>
+<li><p class="first">Click the green <strong>+</strong> sign at the top left corner of the screen</p>
 </li>
-<li><p class="first">Set it down on a stable surface</p>
+<li><p class="first">Click on <strong>Networking</strong></p>
+</li>
+<li><p class="first">Click on <strong>Virtual network</strong></p>
+<a class="reference internal image-reference" href="../../_images/image57.png"><img alt="../../_images/image57.png" src="../../_images/image57.png" style="width: 727.0px; height: 348.0px;" /></a>
+<p>Use the information provided in Table 2.1 below to create a virtual network.</p>
+<p>Table 2.1</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>user&lt;student number&gt;_vnet</td>
+</tr>
+<tr class="row-odd"><td>Address space</td>
+<td>10.10.0.0/16</td>
+</tr>
+<tr class="row-even"><td>Subscription</td>
+<td>&lt;User Unique&gt;</td>
+</tr>
+<tr class="row-odd"><td>Resource group</td>
+<td>Create new: wordpress</td>
+</tr>
+<tr class="row-even"><td>Location</td>
+<td>&lt;Closest Azure DC&gt;</td>
+</tr>
+<tr class="row-odd"><td>Address Range</td>
+<td>10.10.0.0/22</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image58.png"><img alt="../../_images/image58.png" src="../../_images/image58.png" style="width: 581.0px; height: 730.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Create</strong></p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-install-the-bip-appliance-in-a-datacenter-rack">
-<h2>2.2.1.2. Task – Install the BIG-IP Appliance in a Datacenter Rack<a class="headerlink" href="#task-install-the-bip-appliance-in-a-datacenter-rack" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs task description</p>
+<div class="section" id="task-2-deploy-and-configure-wordpress-within-azure">
+<h1>2.2.3. Task 2 - Deploy and configure WordPress within Azure<a class="headerlink" href="#task-2-deploy-and-configure-wordpress-within-azure" title="Permalink to this headline">¶</a></h1>
+<p>In this task you will deploy another virtual machine and install the
+WordPress application to be placed behind the BIG-IP. Let’s go back to
+the Microsoft Azure Portal.</p>
+<ol class="arabic">
+<li><p class="first">Click the green <strong>+</strong> sign at the top left corner of the screen</p>
+</li>
+<li><p class="first">Start searching the marketplace by typing ‘bitnami wordpress’ in the
+search field and hit <strong>Enter</strong></p>
+<a class="reference internal image-reference" href="../../_images/image32.png"><img alt="../../_images/image32.png" src="../../_images/image32.png" style="width: 596.0px; height: 194.0px;" /></a>
+</li>
+<li><p class="first">Select <strong>WordPress Certified by Bitnami</strong></p>
+<a class="reference internal image-reference" href="../../_images/image33.png"><img alt="../../_images/image33.png" src="../../_images/image33.png" style="width: 605.0px; height: 445.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Create</strong> at the bottom of the screen</p>
+<p>Use the information in Table 2.2 to complete the “Basics” configuration
+page during this deployment.</p>
+<p>Table 2.2</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>user&lt;student number&gt;wordpress</td>
+</tr>
+<tr class="row-odd"><td>VM disk type</td>
+<td>SSD</td>
+</tr>
+<tr class="row-even"><td>User name</td>
+<td>f5bigipuser&lt;student number&gt;</td>
+</tr>
+<tr class="row-odd"><td>Authentication type</td>
+<td>SSH public key</td>
+</tr>
+<tr class="row-even"><td>SSH public key</td>
+<td>From Lab 1 Step 1</td>
+</tr>
+<tr class="row-odd"><td>Subscription</td>
+<td>&lt;User Unique&gt;</td>
+</tr>
+<tr class="row-even"><td>Resource Group</td>
+<td>Use existing: wordpress</td>
+</tr>
+<tr class="row-odd"><td>Location</td>
+<td>&lt;Closest Azure DC&gt;</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image59.png"><img alt="../../_images/image59.png" src="../../_images/image59.png" style="width: 673.0px; height: 771.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong> at the bottom of the page</p>
+<p>Use the information in Table 2.3 to complete the “Choose a size”
+configuration page during this deployment.</p>
+<p>Table 2.3</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Disk Type</td>
+<td>HHD</td>
+</tr>
+<tr class="row-odd"><td>Size</td>
+<td>A1 Basic</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Choose <strong>A1 Basic</strong></p>
+<a class="reference internal image-reference" href="../../_images/image35.png"><img alt="../../_images/image35.png" src="../../_images/image35.png" style="width: 978.0px; height: 690.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Select</strong></p>
+<p>Use the information in Table 2.4 to complete the “Settings” configuration
+page during this deployment.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On the Settings page you’ll see a warning concerning the VM size
+chosen.</p>
 </div>
-<p>In this task you will install the BIG-IP Appliance into a Rack.  You will need
-the following tools:</p>
+<p>Table 2.4</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Storage Type</td>
+<td>HHD</td>
+</tr>
+<tr class="row-odd"><td>Use managed disks</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Change the “Disk type” to <strong>HDD</strong></p>
+</li>
+<li><p class="first">Set “Use managed disk” to <strong>No</strong></p>
+</li>
+<li><p class="first">Keep the other configurations unmodified</p>
+<a class="reference internal image-reference" href="../../_images/image60.png"><img alt="../../_images/image60.png" src="../../_images/image60.png" style="width: 333.0px; height: 375.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+</li>
+<li><p class="first">Verify the summary</p>
+<a class="reference internal image-reference" href="../../_images/image37.png"><img alt="../../_images/image37.png" src="../../_images/image37.png" style="width: 586.5px; height: 431.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Create</strong></p>
+</li>
+<li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">Select your WordPress “Public IP address”</p>
+<a class="reference internal image-reference" href="../../_images/image61.png"><img alt="../../_images/image61.png" src="../../_images/image61.png" style="width: 935.0px; height: 469.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image62.png"><img alt="../../_images/image62.png" src="../../_images/image62.png" style="width: 616.0px; height: 241.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember the WordPress public IP address. This will be used in
+subsequent steps.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-access-wordpress-instance-and-launch-a-sql-injection-attack">
+<h1>2.2.4. Task 3 - Access WordPress instance and launch a SQL Injection attack<a class="headerlink" href="#task-3-access-wordpress-instance-and-launch-a-sql-injection-attack" title="Permalink to this headline">¶</a></h1>
+<p>The next task involves testing the application and checking for open
+vulernabilities. You will need to access your WordPress instance and
+launch a simple SQL Injection attack.</p>
+<ol class="arabic">
+<li><p class="first">Open a web browser and navigate to http://&lt;wordpress-public-IP&gt;</p>
+</li>
+<li><p class="first">Navigate to the <strong>Search</strong> box. You can do this via two methods:</p>
 <ul class="simple">
-<li>Phillips Screwdriver</li>
-<li>Hammer</li>
-<li>Crowbar</li>
+<li>Scrolling down the page with the browser scroll bars</li>
+<li>Or…<ul>
+<li>Click the <strong>X</strong> in the lower right corner of the screen</li>
+<li>Close the <strong>Manage</strong> link</li>
+<li>Click the arrow in bottom right corner of the screen</li>
 </ul>
-<div class="admonition caution">
-<p class="first admonition-title">Caution</p>
-<p class="last">Appliances can be heavy.  Please follow all applicable safety
-guidelines.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">In the search box, enter the string <code class="docutils literal"><span class="pre">'or</span> <span class="pre">1=1#</span></code> to launch the SQL
+Injection attack.</p>
+<a class="reference internal image-reference" href="../../_images/image63.png"><img alt="../../_images/image63.png" src="../../_images/image63.png" style="width: 627.0px; height: 360.0px;" /></a>
+</li>
+<li><p class="first">Hit <strong>Enter</strong></p>
+</li>
+<li><p class="first">Perform this task several times to simulate an attack</p>
+<p>Although the WordPress application does not respond with any records,
+there are in fact no safeguards against this SQL injection attack.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">'or</span> <span class="pre">1=1#</span></code> is an example of a simple SQL Injection attack. A
+<a class="reference external" href="https://www.owasp.org/index.php/SQL_injection">SQL injection</a>
+attack consists of insertion or “injection” of a SQL query via the
+input data from the client to the application. A successful SQL
+injection exploit can read sensitive data from the database, modify
+database data (Insert/Update/Delete), execute administration
+operations on the database (e.g. shutdown the DBMS), recover the
+content of a given file present on the DBMS file system, and in
+some cases issue commands to the operating system.</p>
 </div>
-<p>Follow these steps to complete this task:</p>
-<ol class="arabic simple">
-<li>Install the rackmount rails onto the appliance using the included hardware</li>
-<li>Lift the appliance into place</li>
-<li>Complete installation by using your tools to secure the appliance.</li>
+</li>
 </ol>
 </div>
+<div class="section" id="task-4-accept-eula-for-f5-waf-in-azure-marketplace">
+<h1>2.2.5. Task 4 - Accept EULA for F5 WAF in Azure Marketplace<a class="headerlink" href="#task-4-accept-eula-for-f5-waf-in-azure-marketplace" title="Permalink to this headline">¶</a></h1>
+<p>Prior to using Azure Security Center or other Marketplace items, you must
+enable that particular item in Azure Marketplace (e.g. accept EULA). In
+this task you will go to the Azure Marketplace and enable <strong>the F5 WAF Solution for ASC</strong>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have already performed this step in your Azure account,
+then you can skip this task and move to the next task.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Open a browser and go to <a class="reference external" href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/f5-networks.f5-web-application-firewall">https://azuremarketplace.microsoft.com/en-us/marketplace/apps/f5-networks.f5-web-application-firewall</a></p>
+<a class="reference internal image-reference" href="../../_images/image64.png"><img alt="../../_images/image64.png" src="../../_images/image64.png" style="width: 752.0px; height: 457.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>GET IT NOW</strong></p>
+</li>
+<li><p class="first">Complete the sign in process using the email address used to set
+up your account.</p>
+</li>
+<li><p class="first">Accept the EULA by clicking <strong>Continue</strong></p>
+<a class="reference internal image-reference" href="../../_images/image65.png"><img alt="../../_images/image65.png" src="../../_images/image65.png" style="width: 810.0px; height: 364.0px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-5-launch-azure-security-center-and-deploy-the-f5-waf">
+<h1>2.2.6. Task 5 - Launch Azure Security Center and deploy the F5 WAF<a class="headerlink" href="#task-5-launch-azure-security-center-and-deploy-the-f5-waf" title="Permalink to this headline">¶</a></h1>
+<p>Among other things, Azure Security Center (ASC) makes recommendations to
+optimize and secure your web applications. You will now follow the
+recommendation from ASC to deploy the F5 pre-configured WAF in front
+of your WordPress application.</p>
+<ol class="arabic">
+<li><p class="first">Go back to the Microsoft Azure portal and navigate to Azure Security
+Center.</p>
+<a class="reference internal image-reference" href="../../_images/image66.png"><img alt="../../_images/image66.png" src="../../_images/image66.png" style="width: 698.0px; height: 549.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Security Center -&gt; Welcome</strong></p>
+</li>
+<li><p class="first">Click <strong>Launch Security Center</strong> and notice that ASC has recommendations
+for your environment</p>
+<a class="reference internal image-reference" href="../../_images/image67.png"><img alt="../../_images/image67.png" src="../../_images/image67.png" style="width: 572.0px; height: 266.5px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Recommendations</strong></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Recommendations are created by the Azure Security Center to make your
+applications more secure. One of the recommendations is to
+<strong>Add a web application firewall</strong>.</p>
+</div>
+</li>
+<li><p class="first">In the “Recommendations” page, select the <strong>Add a web application firewall</strong></p>
+</li>
+<li><p class="first">Click on the name of the application to the right of the screen</p>
+<p>Example: <em>user&lt;student number&gt;wordpress-ip</em> in the screenshot below</p>
+<a class="reference internal image-reference" href="../../_images/image68.png"><img alt="../../_images/image68.png" src="../../_images/image68.png" style="width: 717.0px; height: 118.5px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the name of your WordPress does not appear, please wait a few
+minutes until Azure Security Center can create the Recommendations.</p>
+</div>
+</li>
+<li><p class="first">Click on <strong>Create New</strong></p>
+<a class="reference internal image-reference" href="../../_images/image69.png"><img alt="../../_images/image69.png" src="../../_images/image69.png" style="width: 622.0px; height: 154.0px;" /></a>
+</li>
+<li><p class="first">Select <strong>F5 Networks</strong></p>
+<a class="reference internal image-reference" href="../../_images/image70.png"><img alt="../../_images/image70.png" src="../../_images/image70.png" style="width: 569.0px; height: 63.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>There are two deployment methods available today for the
+pre-configured F5 WAF:</p>
+<ul class="simple">
+<li>“Automatically provisioned”</li>
+<li>“Semi-automatically provisioned”</li>
+</ul>
+<p class="last">For this lab you will be using the <strong>“Automatically provisioned”</strong> method.</p>
+</div>
+</li>
+<li><p class="first">Select the option for <strong>Automatically provisioned</strong></p>
+<a class="reference internal image-reference" href="../../_images/image71.png"><img alt="../../_images/image71.png" src="../../_images/image71.png" style="width: 628.0px; height: 261.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Create</strong></p>
+<p>Use the information in Table 2.5 to complete the “VM Configuration” page
+during this deployment. Leave all other settings as default.</p>
+<p>Table 2.5</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Password</td>
+<td>Demo123</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image72.png"><img alt="../../_images/image72.png" src="../../_images/image72.png" style="width: 449.0px; height: 384.5px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+<p>Use the information in Table 2.6 to complete the “WAF Information” page
+during this deployment. Leave all other options as default.</p>
+<p>Table 2.6</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>License token</td>
+<td>&lt;license provided by the proctor&gt;</td>
+</tr>
+<tr class="row-odd"><td>Internal server port</td>
+<td>HTTP (note two locations)</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image73.png"><img alt="../../_images/image73.png" src="../../_images/image73.png" style="width: 677.0px; height: 733.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+</li>
+<li><p class="first">Click <strong>Create</strong></p>
+<a class="reference internal image-reference" href="../../_images/image74.png"><img alt="../../_images/image74.png" src="../../_images/image74.png" style="width: 336.0px; height: 441.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Deployment time can take up to 30 minutes.</p>
+</div>
+</li>
+<li><p class="first">Click on the Resource Group that deployed the F5 WAF</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">It will be named wordpress-asc…</p>
+</div>
+<a class="reference internal image-reference" href="../../_images/image75.png"><img alt="../../_images/image75.png" src="../../_images/image75.png" style="width: 648.0px; height: 384.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Public IP address</strong></p>
+<a class="reference internal image-reference" href="../../_images/image76.png"><img alt="../../_images/image76.png" src="../../_images/image76.png" style="width: 647.0px; height: 386.5px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember the F5 public IP address. This will be used in
+subsequent steps.</p>
+</div>
+<a class="reference internal image-reference" href="../../_images/image77.png"><img alt="../../_images/image77.png" src="../../_images/image77.png" style="width: 601.0px; height: 245.0px;" /></a>
+</li>
+<li><p class="first">Open a web browser and go to the BIG-IP GUI at https://&lt;Public-IP:8443&gt;
+to see when the platform completes the deployment</p>
+</li>
+<li><p class="first">Login as admin and use the password you entered during the WAF
+deployment process.</p>
+<a class="reference internal image-reference" href="../../_images/image78.png"><img alt="../../_images/image78.png" src="../../_images/image78.png" style="width: 675.0px; height: 425.0px;" /></a>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The deployment takes time. If you observe it from the GUI,
+you will see a reboot. This automated background deployment
+(licensing, creating the pool and virtual server) may take 10 minutes
+or longer. Please be patient and do not interrupt this process.
+Once the Virtual Server is created, the setup of F5 WAF is complete.</p>
+</div>
+</li>
+<li><p class="first">Review the F5 configurations by first going to <strong>LTM -&gt; Virtual Servers</strong></p>
+</li>
+<li><p class="first">Review the <strong>LTM -&gt; Pools</strong></p>
+</li>
+</ol>
+</div>
+<div class="section" id="task-6-demonstrate-f5-waf-blocking-functionality">
+<h1>2.2.7. Task 6 - Demonstrate F5 WAF blocking functionality<a class="headerlink" href="#task-6-demonstrate-f5-waf-blocking-functionality" title="Permalink to this headline">¶</a></h1>
+<p>As part of the WAF deployment, a new F5 VIP (virtual IP/listener) has been
+configured for the WordPress application that sits behind an Azure NAT rule.
+Additionally, a base WAF policy has been configured automaticaly for
+the application.</p>
+<p>To test the WAF policy, you will repeat the SQL injection attack from
+a previous lab against the WordPress application. However this time you
+will access the WordPress application through the F5 protected WAF policy.</p>
+<ol class="arabic">
+<li><p class="first">Open a web browser and go to http://&lt;F5-public-IP&gt;</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The public IP address is the same IP address used to access
+the BIG-IP. The Azure NATs found within the Azure load balancer (ALB)
+control the NAT decisions. This allows proper traffic direction
+depending on if it is F5 management traffic or client/server traffic.</p>
+<p class="last">Essentially, we have deployed the F5 WAF in single-nic mode.
+Azure LB can only send traffic to the first network interface of a VM
+instance. The F5 WAF security solution therefore runs a single IP that
+accepts management traffic as well as client/server traffic based on
+traffic received at the Azure LB NAT.</p>
+</div>
+</li>
+<li><p class="first">Navigate to the <strong>Search</strong> box. You can do this via two methods:</p>
+<ul class="simple">
+<li>Scrolling down the page with the browser scroll bars</li>
+<li>Or…<ul>
+<li>Click the <strong>X</strong> in the lower right corner of the screen</li>
+<li>Close the <strong>Manage</strong> link</li>
+<li>Click the arrow in bottom right corner of the screen</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">In the search box, enter the string <code class="docutils literal"><span class="pre">'or</span> <span class="pre">1=1#</span></code> to launch the SQL
+Injection attack.</p>
+<a class="reference internal image-reference" href="../../_images/image63.png"><img alt="../../_images/image63.png" src="../../_images/image63.png" style="width: 627.0px; height: 360.0px;" /></a>
+</li>
+<li><p class="first">Hit <strong>Enter</strong></p>
+</li>
+<li><p class="first">Perform this task several times to simulate an attack. Notice that the F5 BIG-IP WAF policy is now protecting the WordPress
+application from this SQL injection attack.</p>
+<a class="reference internal image-reference" href="../../_images/image80.png"><img alt="../../_images/image80.png" src="../../_images/image80.png" style="width: 645.0px; height: 220.5px;" /></a>
+</li>
+<li><p class="first">Open another web browser and go to the BIG-IP GUI at
+https://&lt;F5-public-IP:8443&gt;</p>
+</li>
+<li><p class="first">Go to <strong>Security -&gt; Event Logs -&gt; Application -&gt; Requests</strong></p>
+<a class="reference internal image-reference" href="../../_images/image81.png"><img alt="../../_images/image81.png" src="../../_images/image81.png" style="width: 831.0px; height: 649.0px;" /></a>
+</li>
+<li><p class="first">Click on the line with the highest “Violation Rating” link
+to view full request information</p>
+<a class="reference internal image-reference" href="../../_images/image82.png"><img alt="../../_images/image82.png" src="../../_images/image82.png" style="width: 821.0px; height: 593.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Attack signature detected</strong></p>
+<a class="reference internal image-reference" href="../../_images/image83.png"><img alt="../../_images/image83.png" src="../../_images/image83.png" style="width: 716.0px; height: 66.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>View details…</strong></p>
+<a class="reference internal image-reference" href="../../_images/image84.png"><img alt="../../_images/image84.png" src="../../_images/image84.png" style="width: 718.0px; height: 119.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The F5 WAF has successfully detected the SQL injection attack
+and protect the WordPress application.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="task-7-finalize-the-waf-deployment">
+<h1>2.2.8. Task 7 - Finalize the WAF Deployment<a class="headerlink" href="#task-7-finalize-the-waf-deployment" title="Permalink to this headline">¶</a></h1>
+<p>Now that you have successfully tested the path to WordPress through the
+F5 BIG-IP, you need to finalize the WAF deployment. Currently access
+still works direct to the WordPress application via public IP address
+http://&lt;wordpress-public-IP as demonstrated in Task 1 of this lab.
+Finalizing the WAF deployment will eliminate the ability to access
+the WordPress application directly. Access to the WordPress
+application will only be available through the F5 BIG-IP.</p>
+<ol class="arabic">
+<li><p class="first">Go back to the Microsoft Azure portal and navigate to Azure Security
+Center</p>
+</li>
+<li><p class="first">Click on <strong>Security Center -&gt; Overview</strong></p>
+<a class="reference internal image-reference" href="../../_images/image85.png"><img alt="../../_images/image85.png" src="../../_images/image85.png" style="width: 717.5px; height: 390.5px;" /></a>
+</li>
+<li><p class="first">Click <strong>Recommendations</strong></p>
+</li>
+<li><p class="first">Select <strong>Finalize web application firewall setup</strong></p>
+<a class="reference internal image-reference" href="../../_images/image86.png"><img alt="../../_images/image86.png" src="../../_images/image86.png" style="width: 531.5px; height: 177.5px;" /></a>
+</li>
+<li><p class="first">Click on the WordPress application</p>
+<a class="reference internal image-reference" href="../../_images/image87.png"><img alt="../../_images/image87.png" src="../../_images/image87.png" style="width: 625.0px; height: 180.0px;" /></a>
+</li>
+<li><p class="first">Check <strong>I updated my DNS record</strong> and click <strong>Restrict traffic</strong></p>
+<a class="reference internal image-reference" href="../../_images/image88.png"><img alt="../../_images/image88.png" src="../../_images/image88.png" style="width: 628.0px; height: 572.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a production environment you would first want to update your DNS
+records to point to the new BIG-IP VIP.</p>
+</div>
+<p>The process takes a couple minutes. When complete, now you can
+verify access has been restricted and WordPress is no longer
+directly accessible through the original WordPress public IP.</p>
+</li>
+<li><p class="first">Open a web browser and go to http://&lt;wordpress-public-IP&gt;</p>
+</li>
+<li><p class="first">Notice that the page no longer loads</p>
+<a class="reference internal image-reference" href="../../_images/image89.png"><img alt="../../_images/image89.png" src="../../_images/image89.png" style="width: 677.0px; height: 475.0px;" /></a>
+</li>
+<li><p class="first">Sanity check…test access via the F5 WAF again and go to http://&lt;F5-public-IP&gt;</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Testing WordPress by going through the F5 should successfully load.
+Testing WordPress IP directly should fail.</p>
+</div>
+<a class="reference internal image-reference" href="../../_images/image56.gif"><img alt="../../_images/image56.gif" src="../../_images/image56.gif" style="width: 93.5px; height: 93.5px;" /></a>
+</li>
+</ol>
+<p><strong>This concludes Lab 2</strong></p>
 </div>
 
 
@@ -308,10 +796,10 @@ guidelines.</p>
 		     <div class="row next-prev-btn-row">
            <div class="col-lg-12">
            
-		        <a href="module2.html" title="2.2. Module – Installing a BIG-IP Appliance" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
+		        <a href="module2.html" title="2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
            
            
-              <a href="lab2.html" title="2.2.2. Lab – Power-on the BIG-IP Appliance" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              <a href="../module3/module3.html" title="2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
            
 		     </div>
          </div>

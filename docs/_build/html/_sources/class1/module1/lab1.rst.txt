@@ -430,7 +430,7 @@ Task 5 - Deploy and configure WordPress within Azure
 ----------------------------------------------------
 
 In this task you will deploy another virtual machine and install the
-WordPress application to be place behind the BIG-IP. Let's go back to
+WordPress application to be placed behind the BIG-IP. Let's go back to
 the Microsoft Azure Portal.
 
 #. Click the green **+** sign at the top left corner of the screen

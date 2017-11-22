@@ -3,9 +3,9 @@ Class - |classname|
 
 This class covers the following topics:
 
-- Deploy a standalone F5 BIG-IP Application Delivery Controller in Azure
-- Deploying an F5 Web Application Firewall using the Azure Security Center
-- Deploy an F5 BIG-IP active/active HA pair using ARM templates
+- Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure
+- Deploy an F5 Web Application Firewall Using the Azure Security Center
+- Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates
 
 Expected time to complete: **3 hours**
 
