@@ -1,5 +1,5 @@
-Lab – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure
-----------------------------------------------------------------------------
+Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure
+------------------------------------------------------------------------------
 
 This lab will teach you how to manually install a |bip| |ve| in your Azure cloud environment.
 
