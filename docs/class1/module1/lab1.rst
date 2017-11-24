@@ -3,7 +3,13 @@ Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure
 
 This lab will teach you how to manually install a |bip| |ve| in your Azure cloud environment.
 
-Task 1 - Create an SSH Key Pair
+Lab 1 – Topology
+~~~~~~~~~~~~~~~~
+
+   .. image:: /_static/lab-1-topology.png
+      :scale: 50 %
+
+Task 1 – Create an SSH Key Pair
 -------------------------------
 
 Before you begin the deployment process, you first need to generate an
@@ -61,7 +67,7 @@ Example public RSA key Windows:
    In future steps, making a connection to WordPress or |bip| via SSH will
    use the private key in PuTTY for authentication.
 
-Task 2 - Deploy a new F5 BIG-IP VE in Azure
+Task 2 – Deploy a new F5 BIG-IP VE in Azure
 -------------------------------------------
 
 In this task you will deploy a new Azure Resource Group, F5 BIG-IP VE,
@@ -120,7 +126,7 @@ Let's get started.
    +-----------------------+----------------------------------------+
    | Authentication Type   | SSH public key                         |
    +-----------------------+----------------------------------------+
-   | SSH public key        | From Lab1 Step 1                       |
+   | SSH public key        | From Lab 1, Task 1                     |
    +-----------------------+----------------------------------------+
    | Subscription          | <User Unique>                          |
    +-----------------------+----------------------------------------+
@@ -203,7 +209,7 @@ Let's get started.
 
 #. Click **Purchase** or **Create**
 
-Task 3 - Allow management and HTTP access to the BIG-IP
+Task 3 – Allow management and HTTP access to the BIG-IP
 -------------------------------------------------------
 
 In this task you will permit management access and HTTPS access to the
@@ -300,7 +306,7 @@ rule set.
    .. image:: /_static/image22.png
       :scale: 50 %
 
-Task 4 - License and Apply Base BIG-IP Configuration
+Task 4 – License and Apply Base BIG-IP Configuration
 ----------------------------------------------------
 
 In this task you will connect to the BIG-IP CLI and GUI, license the
@@ -426,7 +432,7 @@ the BIG-IP's public IP address to which you will connect.
 
 #. Click **Log in**
 
-Task 5 - Deploy and configure WordPress within Azure
+Task 5 – Deploy and configure WordPress within Azure
 ----------------------------------------------------
 
 In this task you will deploy another virtual machine and install the
@@ -463,7 +469,7 @@ the Microsoft Azure Portal.
    +-----------------------+---------------------------------------------+
    | Authentication type   | SSH public key                              |
    +-----------------------+---------------------------------------------+
-   | SSH public key        | From Lab 1 Step 1                           |
+   | SSH public key        | From Lab 1, Task 1                          |
    +-----------------------+---------------------------------------------+
    | Subscription          | <User Unique>                               |
    +-----------------------+---------------------------------------------+
@@ -644,7 +650,7 @@ the Microsoft Azure Portal.
    .. image:: /_static/image46.png
       :scale: 50 %
 
-Task 6 - Allow Internet access to WordPress through the BIG-IP
+Task 6 – Allow Internet access to WordPress through the BIG-IP
 --------------------------------------------------------------
 
 In this task you will configure the BIG-IP with a Virtual Server and
@@ -754,7 +760,7 @@ back to the Microsoft Azure Portal.
 
 #. Now check the statistics of your virtual server to verify traffic flow,
    by navigating to **Statistics -> Module Statistics -> Local Traffic**
-   Under **Statistics Type**, select **Virtual Servers**
+#. Under **Statistics Type**, select **Virtual Servers**
 
    .. image:: /_static/image55.png
       :scale: 50 %

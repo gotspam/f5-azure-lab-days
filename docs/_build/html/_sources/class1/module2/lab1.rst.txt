@@ -1,4 +1,4 @@
-Lab 2 – Deploying an F5 Web Application Firewall using the Azure Security Center
+Lab 2 – Deploy an F5 Web Application Firewall using the Azure Security Center
 --------------------------------------------------------------------------------
 
 This lab will teach you how to deploy a WordPress server in Azure and protect
@@ -10,7 +10,13 @@ deployment of a WAF. Therefore, we'll expose a WordPress server and let
 ASC find the problem for us. After a few questions and answers, a WAF will be
 deployed automatically.
 
-Task 1 - Setup basic cloud components in Azure
+Lab 2 – Topology
+~~~~~~~~~~~~~~~~
+
+   .. image:: /_static/lab-2-topology.png
+      :scale: 50 %
+
+Task 1 – Setup basic cloud components in Azure
 ----------------------------------------------
 
 Basic cloud components are needed first. Things like Virtual Networks and
@@ -51,7 +57,7 @@ deployment.
 
 #. Click **Create**
 
-Task 2 - Deploy and configure WordPress within Azure
+Task 2 – Deploy and configure WordPress within Azure
 ----------------------------------------------------
 
 In this task you will deploy another virtual machine and install the
@@ -88,7 +94,7 @@ the Microsoft Azure Portal.
    +-----------------------+-------------------------------------------------+
    | Authentication type   | SSH public key                                  |
    +-----------------------+-------------------------------------------------+
-   | SSH public key        | From Lab 1 Step 1                               |
+   | SSH public key        | From Lab 1, Task 1                              |
    +-----------------------+-------------------------------------------------+
    | Subscription          | <User Unique>                                   |
    +-----------------------+-------------------------------------------------+
@@ -166,7 +172,7 @@ the Microsoft Azure Portal.
       Remember the WordPress public IP address. This will be used in
       subsequent steps.
 
-Task 3 - Access WordPress instance and launch a SQL Injection attack
+Task 3 – Access WordPress instance and launch a SQL Injection attack
 --------------------------------------------------------------------
 
 The next task involves testing the application and checking for open
@@ -206,7 +212,7 @@ launch a simple SQL Injection attack.
       content of a given file present on the DBMS file system, and in
       some cases issue commands to the operating system.
 
-Task 4 - Accept EULA for F5 WAF in Azure Marketplace
+Task 4 – Accept EULA for F5 WAF in Azure Marketplace
 ----------------------------------------------------------------------
 
 Prior to using Azure Security Center or other Marketplace items, you must
@@ -230,7 +236,7 @@ this task you will go to the Azure Marketplace and enable **the F5 WAF Solution 
    .. image:: /_static/image65.png
       :scale: 50 %
 
-Task 5 - Launch Azure Security Center and deploy the F5 WAF
+Task 5 – Launch Azure Security Center and deploy the F5 WAF
 ----------------------------------------------------------------------
 
 Among other things, Azure Security Center (ASC) makes recommendations to
@@ -376,7 +382,7 @@ of your WordPress application.
 #. Review the F5 configurations by first going to **LTM -> Virtual Servers**
 #. Review the **LTM -> Pools**
 
-Task 6 - Demonstrate F5 WAF blocking functionality
+Task 6 – Demonstrate F5 WAF blocking functionality
 --------------------------------------------------
 
 As part of the WAF deployment, a new F5 VIP (virtual IP/listener) has been
@@ -451,7 +457,7 @@ will access the WordPress application through the F5 protected WAF policy.
       The F5 WAF has successfully detected the SQL injection attack
       and protect the WordPress application.
 
-Task 7 - Finalize the WAF Deployment
+Task 7 – Finalize the WAF Deployment
 ------------------------------------
 
 Now that you have successfully tested the path to WordPress through the
@@ -500,6 +506,9 @@ application will only be available through the F5 BIG-IP.
       :scale: 50 %
 
 #. Sanity check...test access via the F5 WAF again and go to \http://<F5-public-IP>
+
+   .. image:: /_static/image01-wordpress.png
+      :scale: 50 %
 
    .. ATTENTION::
       Testing WordPress by going through the F5 should successfully load.

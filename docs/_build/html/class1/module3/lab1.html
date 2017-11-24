@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.3.1. Lab 3 – Install a F5 Networks BIG-IP Appliance &#8212; Azure F5 Lab Days  documentation</title>
+    <title>2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template &#8212; Azure F5 Lab Days  documentation</title>
     
     <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="3. Examples of Common Formatting" href="../../examples.html" />
-    <link rel="prev" title="2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates" href="module3.html" />
+    <link rel="prev" title="2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates" href="module3.html" />
 <!--
 # Copyright 2017 F5 Networks
 #
@@ -212,11 +212,17 @@
    <span class="caption-text">Current Page</span>
   </p>
   <ul>
-<li><a class="reference internal" href="#">2.3.1. Lab 3 – Install a F5 Networks BIG-IP Appliance</a><ul>
-<li><a class="reference internal" href="#task-unpack-the-bip-appliance">2.3.1.1. Task – Unpack the BIG-IP Appliance</a></li>
-<li><a class="reference internal" href="#task-install-the-bip-appliance-in-a-datacenter-rack">2.3.1.2. Task – Install the BIG-IP Appliance in a Datacenter Rack</a></li>
+<li><a class="reference internal" href="#">2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template</a><ul>
+<li><a class="reference internal" href="#lab-3-topology">2.3.1.1. Lab 3 – Topology</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#task-1-deploy-an-arm-template">2.3.2. Task 1 – Deploy an ARM template</a></li>
+<li><a class="reference internal" href="#task-2-review-results-of-arm-template">2.3.3. Task 2 – Review Results of ARM Template</a></li>
+<li><a class="reference internal" href="#task-3-deploy-and-configure-wordpress-within-azure">2.3.4. Task 3 – Deploy and configure WordPress within Azure</a></li>
+<li><a class="reference internal" href="#task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">2.3.5. Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application</a></li>
+<li><a class="reference internal" href="#task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only">2.3.6. Task 5 – Restrict access to WordPress through the F5 BIG-IP only</a></li>
+<li><a class="reference internal" href="#task-6-test-ha-within-azure">2.3.7. Task 6 – Test HA within Azure</a></li>
+<li><a class="reference internal" href="#appendix-troubleshooting">2.3.8. Appendix – Troubleshooting</a></li>
 </ul>
 
 
@@ -226,7 +232,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../class1.html">2. Class - Azure F5 Lab Days</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="module3.html">2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="module3.html">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">3. Examples of Common Formatting</a></li>
@@ -235,7 +241,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="module3.html"
-                        title="previous chapter">2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates</a></p>
+                        title="previous chapter">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../../examples.html"
                         title="next chapter">3. Examples of Common Formatting</a></p>
@@ -247,61 +253,620 @@
           <span class="right"><a href="../../genindex.html">Index</a></span>
         </h4>
         
-  <div class="section" id="lab-3-install-a-f5-bip-appliance">
-<h1>2.3.1. Lab 3 – Install a F5 Networks BIG-IP Appliance<a class="headerlink" href="#lab-3-install-a-f5-bip-appliance" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs lab description</p>
+  <div class="section" id="lab-3-deploy-an-ha-pair-of-f5-big-ip-in-azure-using-an-arm-template">
+<h1>2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template<a class="headerlink" href="#lab-3-deploy-an-ha-pair-of-f5-big-ip-in-azure-using-an-arm-template" title="Permalink to this headline">¶</a></h1>
+<p>In this step you will be deploying the F5 BIG-IP via an ARM template.
+F5 offers a wide variety of ARM templates for various deployment
+scenarios and licensing options. There are supported and experimental
+templates. This lab will use a template from the supported folder to
+do all the heavy lifting.</p>
+<p>To see a list of all F5 Azure ARM templates, go to
+<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates">https://github.com/F5Networks/f5-azure-arm-templates</a>. Take your time
+to review the README.md.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The supported templates are fully supported by F5, and customers
+can call for issues. The experimental folder contains other
+template options.</p>
 </div>
-<p>In this lab we will unpack and install the BIG-IP Appliance into a rack in your
-datacenter.</p>
-<div class="section" id="task-unpack-the-bip-appliance">
-<h2>2.3.1.1. Task – Unpack the BIG-IP Appliance<a class="headerlink" href="#task-unpack-the-bip-appliance" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs task description</p>
+<p>For this lab, we will be using a template from the following location:</p>
+<p><a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack</a></p>
+<p>It’s recommended to review the README.md on this page as well to become
+familiar with the template, prerequisites, topology, and more.</p>
+<div class="section" id="lab-3-topology">
+<h2>2.3.1.1. Lab 3 – Topology<a class="headerlink" href="#lab-3-topology" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../../_images/lab-3-topology.png"><img alt="../../_images/lab-3-topology.png" src="../../_images/lab-3-topology.png" style="width: 278.5px; height: 371.5px;" /></a>
 </div>
-<p>In this task you will remove the BIG-IP Appliance from it’s packaging.</p>
-<p>Follow these steps to complete this task:</p>
+</div>
+<div class="section" id="task-1-deploy-an-arm-template">
+<h1>2.3.2. Task 1 – Deploy an ARM template<a class="headerlink" href="#task-1-deploy-an-arm-template" title="Permalink to this headline">¶</a></h1>
+<p>This task will walk through a series of steps in order to choose
+and deploy an ARM template in the Azure Portal. Let’s start by
+going to the Azure Portal.</p>
 <ol class="arabic">
-<li><p class="first">Open the box with an extremely sharp knife or cutter</p>
-<div class="admonition danger">
-<p class="first admonition-title">Danger</p>
-<p>Knives are sharp and can cut you.  Please be careful.</p>
-<p class="last"><img alt="knivessharp" src="http://theinkkitchen.com/wp-content/uploads/2014/08/Screenshot-2014-07-30-12.22.44.png" /></p>
-</div>
+<li><p class="first">Open a browser and go to <a class="reference external" href="https://portal.azure.com">https://portal.azure.com</a></p>
+<a class="reference internal image-reference" href="../../_images/lab3-image001.png"><img alt="../../_images/lab3-image001.png" src="../../_images/lab3-image001.png" style="width: 403.5px; height: 295.5px;" /></a>
 </li>
-<li><p class="first">Carefully remove the BIG-IP from it’s packaging</p>
+<li><p class="first">Keep the browser window open</p>
 </li>
-<li><p class="first">Set it down on a stable surface</p>
+<li><p class="first">Open a new browser and go to
+<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack</a></p>
 </li>
-</ol>
-</div>
-<div class="section" id="task-install-the-bip-appliance-in-a-datacenter-rack">
-<h2>2.3.1.2. Task – Install the BIG-IP Appliance in a Datacenter Rack<a class="headerlink" href="#task-install-the-bip-appliance-in-a-datacenter-rack" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">Needs task description</p>
-</div>
-<p>In this task you will install the BIG-IP Appliance into a Rack.  You will need
-the following tools:</p>
-<ul class="simple">
-<li>Phillips Screwdriver</li>
-<li>Hammer</li>
-<li>Crowbar</li>
+<li><p class="first">Scroll down to the README.md section and click <strong>Installation</strong></p>
+<a class="reference internal image-reference" href="../../_images/lab3-image002.png"><img alt="../../_images/lab3-image002.png" src="../../_images/lab3-image002.png" style="width: 450.0px; height: 238.0px;" /></a>
+</li>
+<li><p class="first">Notice the different licensing options</p>
+</li>
+<li><p class="first">Choose <strong>BYOL</strong> by right-clicking and opening in a new tab</p>
+<a class="reference internal image-reference" href="../../_images/lab3-image003.png"><img alt="../../_images/lab3-image003.png" src="../../_images/lab3-image003.png" style="width: 477.0px; height: 289.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You will be directed back to the Azure Portal.</p>
+<p>Alternatively, you can initiate a new template from Azure which
+will require a few more clicks and some copy/paste skills.</p>
+<ul class="last simple">
+<li>Go to your Azure Portal dashboard</li>
+<li>Click the green <strong>+</strong> sign at the top left corner of the screen</li>
+<li>Start searching the marketplace by typing ‘template’ in the search field</li>
+<li>Hit <strong>Enter</strong></li>
+<li>Select the <strong>Template Deployment</strong> and click <strong>Create</strong></li>
+<li>Find the ARM template on github</li>
+<li>View the github azuredeploy.json file in “Raw”</li>
+<li>Select all text and copy</li>
+<li>Go back to Azure Portal</li>
+<li>Select all text and paste into the “Edit Template” window</li>
+<li>Click <strong>Save</strong></li>
+<li>Or…just click the easy deploy button from github</li>
 </ul>
-<div class="admonition caution">
-<p class="first admonition-title">Caution</p>
-<p class="last">Appliances can be heavy.  Please follow all applicable safety
-guidelines.</p>
 </div>
-<p>Follow these steps to complete this task:</p>
-<ol class="arabic simple">
-<li>Install the rackmount rails onto the appliance using the included hardware</li>
-<li>Lift the appliance into place</li>
-<li>Complete installation by using your tools to secure the appliance.</li>
+</li>
+<li><p class="first">You should now be back at the Azure Portal in “Custom Deployment”</p>
+<p>Use the information provided in Table 3.1 to complete the Custom
+deployment process. Leave all other settings as default.</p>
+<p>Table 3.1</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Subscription</td>
+<td>&lt;User Unique&gt;</td>
+</tr>
+<tr class="row-odd"><td>Resource group</td>
+<td>Create new</td>
+</tr>
+<tr class="row-even"><td>Resource group name</td>
+<td>bigipuser&lt;student number&gt;-aa</td>
+</tr>
+<tr class="row-odd"><td>Location</td>
+<td>&lt;Closest Azure DC&gt;</td>
+</tr>
+<tr class="row-even"><td>Admin Password</td>
+<td>Demo123Demo123!</td>
+</tr>
+<tr class="row-odd"><td>Dns Name for Public IP</td>
+<td>f5bigipuser&lt;student number&gt;aa</td>
+</tr>
+<tr class="row-even"><td>License Key 1</td>
+<td>&lt;Provided by proctor&gt;</td>
+</tr>
+<tr class="row-odd"><td>License Key 2</td>
+<td>&lt;Provided by proctor&gt;</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/lab3-image004.png"><img alt="../../_images/lab3-image004.png" src="../../_images/lab3-image004.png" style="width: 364.5px; height: 417.0px;" /></a>
+</li>
+<li><p class="first">Scroll down and check “I agree to the terms and conditions stated
+above”</p>
+</li>
+<li><p class="first">Click on <strong>Purchase</strong></p>
+<a class="reference internal image-reference" href="../../_images/lab3-image005.png"><img alt="../../_images/lab3-image005.png" src="../../_images/lab3-image005.png" style="width: 371.5px; height: 170.0px;" /></a>
+</li>
+<li><p class="first">Review “Notifications” in the top right and notice your new deployment.</p>
+<a class="reference internal image-reference" href="../../_images/lab3-image006.png"><img alt="../../_images/lab3-image006.png" src="../../_images/lab3-image006.png" style="width: 214.0px; height: 99.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You just setup two BIG-IPs as a cluster without having to know any
+specific knowledge about the F5. Deployment can take 10-15
+minutes so be patient. Both instances are active and are not setup
+the traditional way because of the network limitation in Azure.
+There is no L2 connectivity (similar to AWS). As a result, HA is
+assisted with placing an ALB in front of the F5 instances and also
+by using F5 sync groups.</p>
+</div>
+</li>
 </ol>
 </div>
+<div class="section" id="task-2-review-results-of-arm-template">
+<h1>2.3.3. Task 2 – Review Results of ARM Template<a class="headerlink" href="#task-2-review-results-of-arm-template" title="Permalink to this headline">¶</a></h1>
+<p>In the previous task, you used an ARM template to automate the deployment
+of F5 instances and Azure networking components. Now is a good time to
+review other pieces that were created by the ARM template. Let’s go back
+to the Azure Portal.</p>
+<ol class="arabic">
+<li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">Look for the resource type load balancer and select it</p>
+<a class="reference internal image-reference" href="../../_images/image96.png"><img alt="../../_images/image96.png" src="../../_images/image96.png" style="width: 717.5px; height: 306.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This load balancer is an Azure Load Balancer (ALB) which will be in
+front of the two BIG-IPs and used to support the setup of the cluster.</p>
+</div>
+<p>The ALB has some important NAT and load balancing rules to explore. You
+will need to identify the different NAT rules that have been deployed
+in addition to the load balancing rules. Review the NAT rules first.</p>
+</li>
+<li><p class="first">From the Resource Group, click <strong>Inbound NAT rules</strong></p>
+<a class="reference internal image-reference" href="../../_images/image97.png"><img alt="../../_images/image97.png" src="../../_images/image97.png" style="width: 682.0px; height: 279.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember the different service ports. These will be used in subsequent steps
+to connect to the F5 for management purposes.</p>
+</div>
+</li>
+<li><p class="first">From the Resource Group, click <strong>Backend pools</strong></p>
+</li>
+<li><p class="first">Expand <strong>loadBalancerBackEnd</strong> to view the IP addresses of the
+F5 BIG-IPs sitting behind the Azure ALB</p>
+<a class="reference internal image-reference" href="../../_images/image98.png"><img alt="../../_images/image98.png" src="../../_images/image98.png" style="width: 718.0px; height: 269.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Take note of these IP addresses. These are the applications running
+on the F5 instances. The ALB is load balancing each F5 in active/active.</p>
+</div>
+<p>Next you will look at the load balancing rules. Look at the rules for HTTP and
+HTTPS applications as well as the ports used on the backend. Azure Load
+Balancer uses NAT to direct traffic to the different service ports.</p>
+</li>
+<li><p class="first">From the Resource Group, click <strong>Load balancing rules</strong></p>
+<a class="reference internal image-reference" href="../../_images/image99.png"><img alt="../../_images/image99.png" src="../../_images/image99.png" style="width: 717.0px; height: 349.5px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Take note of the different port mappings.</p>
+</div>
+<p>You will now connect to the F5 BIG-IPs. To do so you first need to
+identify the BIG-IPs’ public IP addresses.</p>
+</li>
+<li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">From the Resource Group, click one of the F5 virtual machines to see its public IP</p>
+<a class="reference internal image-reference" href="../../_images/image100.png"><img alt="../../_images/image100.png" src="../../_images/image100.png" style="width: 951.0px; height: 578.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image101.png"><img alt="../../_images/image101.png" src="../../_images/image101.png" style="width: 489.5px; height: 179.5px;" /></a>
+</li>
+<li><p class="first">Then click the other F5 virtual machine and notice that both F5 BIG-IPs have
+the same publick IP address.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You can access each individual unit by using the service ports identified
+earlier in the NAT rules.</p>
+</div>
+</li>
+<li><p class="first">Open a browser and connect to the BIG-IPs’ management GUIs using the NAT’d
+service ports. In our case, the service ports are 8443 and 8444.</p>
+<ul class="simple">
+<li>F5 #1 = https://&lt;public-IP&gt;:8443</li>
+<li>F5 #2 = https://&lt;public-IP&gt;:8444</li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/image119.png"><img alt="../../_images/image119.png" src="../../_images/image119.png" style="width: 742.0px; height: 518.0px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-3-deploy-and-configure-wordpress-within-azure">
+<h1>2.3.4. Task 3 – Deploy and configure WordPress within Azure<a class="headerlink" href="#task-3-deploy-and-configure-wordpress-within-azure" title="Permalink to this headline">¶</a></h1>
+<p>In this task you will deploy another virtual machine and install the
+WordPress application to be placed behind the BIG-IP. Let’s go back to
+the Microsoft Azure Portal.</p>
+<ol class="arabic">
+<li><p class="first">Click the green <strong>+</strong> sign at the top left corner of the screen</p>
+</li>
+<li><p class="first">Start searching the marketplace by typing ‘bitnami wordpress’ in the
+search field and hit <strong>Enter</strong></p>
+<a class="reference internal image-reference" href="../../_images/image32.png"><img alt="../../_images/image32.png" src="../../_images/image32.png" style="width: 596.0px; height: 194.0px;" /></a>
+</li>
+<li><p class="first">Select <strong>WordPress Certified by Bitnami</strong></p>
+<a class="reference internal image-reference" href="../../_images/image33.png"><img alt="../../_images/image33.png" src="../../_images/image33.png" style="width: 605.0px; height: 445.0px;" /></a>
+</li>
+<li><p class="first">Click on <strong>Create</strong> at the bottom of the screen</p>
+<p>Use the information in Table 3.2 to complete the “Basics” configuration
+page during this deployment.</p>
+<p>Table 3.2</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>user&lt;student number&gt;wordpress</td>
+</tr>
+<tr class="row-odd"><td>VM disk type</td>
+<td>SSD</td>
+</tr>
+<tr class="row-even"><td>User name</td>
+<td>azureuser&lt;student number&gt;</td>
+</tr>
+<tr class="row-odd"><td>Authentication type</td>
+<td>SSH public key</td>
+</tr>
+<tr class="row-even"><td>SSH public key</td>
+<td>From Lab 1, Task 1</td>
+</tr>
+<tr class="row-odd"><td>Subscription</td>
+<td>&lt;User Unique&gt;</td>
+</tr>
+<tr class="row-even"><td>Resource Group</td>
+<td>Existing: bigipuser&lt;student number&gt;-aa</td>
+</tr>
+<tr class="row-odd"><td>Resource Group</td>
+<td>bigipuser&lt;student number&gt;-aa</td>
+</tr>
+<tr class="row-even"><td>Location</td>
+<td>&lt;Closest Azure DC&gt;</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image120.png"><img alt="../../_images/image120.png" src="../../_images/image120.png" style="width: 676.0px; height: 707.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong> at the bottom of the page</p>
+<p>Use the information in Table 3.3 to complete the “Choose a size” configuration
+page during this deployment.</p>
+<p>Table 3.3</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Disk Type</td>
+<td>HHD</td>
+</tr>
+<tr class="row-odd"><td>Size</td>
+<td>A1 Basic</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Choose <strong>A1 Basic</strong></p>
+<a class="reference internal image-reference" href="../../_images/image35.png"><img alt="../../_images/image35.png" src="../../_images/image35.png" style="width: 978.0px; height: 690.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Select</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On the Settings page you’ll see a warning concerning the VM size
+chosen.</p>
+</div>
+<p>Use the information in Table 3.4 to complete the “Settings”
+configuration page during this deployment.</p>
+<p>Table 3.4</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Storage Type</td>
+<td>HHD</td>
+</tr>
+<tr class="row-odd"><td>Use managed disks</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Change the “Disk type” to <strong>HDD</strong></p>
+</li>
+<li><p class="first">Set “Use managed disk” to <strong>No</strong></p>
+</li>
+<li><p class="first">Keep the other configurations unmodified</p>
+<a class="reference internal image-reference" href="../../_images/image121.png"><img alt="../../_images/image121.png" src="../../_images/image121.png" style="width: 676.0px; height: 738.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+</li>
+<li><p class="first">Verify the summary</p>
+<a class="reference internal image-reference" href="../../_images/image37.png"><img alt="../../_images/image37.png" src="../../_images/image37.png" style="width: 586.5px; height: 431.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Create</strong></p>
+</li>
+<li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">Select your WordPress “Public IP address”</p>
+<a class="reference internal image-reference" href="../../_images/image123.png"><img alt="../../_images/image123.png" src="../../_images/image123.png" style="width: 719.0px; height: 440.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image124.png"><img alt="../../_images/image124.png" src="../../_images/image124.png" style="width: 657.0px; height: 241.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember the WordPress private and public IP addresses. These will be used
+in subsequent steps.</p>
+</div>
+</li>
+<li><p class="first">Open a browser and navigate to http://&lt;wordpress-public-IP&gt;</p>
+<a class="reference internal image-reference" href="../../_images/image01-wordpress.png"><img alt="../../_images/image01-wordpress.png" src="../../_images/image01-wordpress.png" style="width: 640.5px; height: 450.5px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">
+<h1>2.3.5. Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application<a class="headerlink" href="#task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application" title="Permalink to this headline">¶</a></h1>
+<p>In this task you will configure the BIG-IP with a Virtual Server and
+Pool to allow inbound Internet access to the WordPress application. Let’s go back
+to the Microsoft Azure Portal.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">We will need the private IP address for the WordPress instance from Task 3.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Connect to the BIG-IP0 using https://&lt;public-IP&gt;:8443</p>
+</li>
+<li><p class="first">From the BIG-IP GUI, go to <strong>Local traffic -&gt; Pools -&gt; Pool List</strong> and
+click on the <strong>+</strong> sign. Configure the pool using the information provided
+in Table 3.5 below leaving all other fields set to defaults.</p>
+<p>Table 3.5</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>wordpress_pool</td>
+</tr>
+<tr class="row-odd"><td>Health Montitor</td>
+<td>http_head_f5</td>
+</tr>
+<tr class="row-even"><td>Node Name</td>
+<td>wordpress</td>
+</tr>
+<tr class="row-odd"><td>Address</td>
+<td>&lt;your WordPress private IP address&gt;</td>
+</tr>
+<tr class="row-even"><td>Service Port</td>
+<td>80</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image126.png"><img alt="../../_images/image126.png" src="../../_images/image126.png" style="width: 873.0px; height: 689.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Finished</strong>. When configured correctly, the pool status will be green.</p>
+<a class="reference internal image-reference" href="../../_images/image127.png"><img alt="../../_images/image127.png" src="../../_images/image127.png" style="width: 564.0px; height: 299.0px;" /></a>
+</li>
+<li><p class="first">Check that the pool is synced to BIG-IP1 (same public IP, port 8444).</p>
+<ul class="simple">
+<li>Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444</li>
+<li>From the BIG-IP GUI, go to <strong>Local traffic -&gt; Pools -&gt; Pool List</strong></li>
+<li>Verify that new pool “wordpress_pool” is successfully synced</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The Azure Load Balancer NATs HTTPS traffic 80 -&gt; <strong>8081</strong>. This is why
+the F5 virtual server you will create below listens on port 8081.</p>
+</div>
+<p>Now that the pool is created, you need a virtual server to accept traffic
+and load balance to the pool. You will need to go back to BIG-IP0 (port 8443)
+and create a transparent virtual server. A transparent virtual server is a
+special type of VS that listens on all IP addresses/ports and looks like 0.0.0.0/0.</p>
+</li>
+<li><p class="first">Open or change browsers back to BIG-IP0 (port 8443)</p>
+</li>
+<li><p class="first">Create a virtual server by going to
+<strong>Local Traffic -&gt; Virtual Servers -&gt; Virtual Server List</strong> and click
+on the <strong>+</strong> sign. Configure the Virtual Server using the information
+provided in Table 3.6 below leaving all other fields set to defaults.</p>
+<p>Table 3.6</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>vs_wordpress</td>
+</tr>
+<tr class="row-odd"><td>Destination Address</td>
+<td>0.0.0.0/0</td>
+</tr>
+<tr class="row-even"><td>Service Port</td>
+<td>8081</td>
+</tr>
+<tr class="row-odd"><td>Source Address Translation</td>
+<td>Auto Map</td>
+</tr>
+<tr class="row-even"><td>Default Pool</td>
+<td>wordpress_pool</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/image128.png"><img alt="../../_images/image128.png" src="../../_images/image128.png" style="width: 846.0px; height: 1074.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image129.png"><img alt="../../_images/image129.png" src="../../_images/image129.png" style="width: 902.0px; height: 708.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Finish</strong></p>
+</li>
+<li><p class="first">Check the virtual server is green</p>
+<a class="reference internal image-reference" href="../../_images/image130.png"><img alt="../../_images/image130.png" src="../../_images/image130.png" style="width: 718.5px; height: 161.5px;" /></a>
+<p>You have now completed the BIG-IP configuration for the WordPress
+application. To verify proper functionality, let’s browse the site and
+verify F5 statistics.</p>
+</li>
+<li><p class="first">Open a browser to to http://&lt;public-IP&gt; and ensure it
+displays your WordPress blog.</p>
+<a class="reference internal image-reference" href="../../_images/image01-wordpress.png"><img alt="../../_images/image01-wordpress.png" src="../../_images/image01-wordpress.png" style="width: 640.5px; height: 450.5px;" /></a>
+</li>
+<li><p class="first">Now check the statistics of your virtual server to verify traffic flow,
+by navigating to <strong>Statistics -&gt; Module Statistics -&gt; Local Traffic</strong></p>
+</li>
+<li><p class="first">Under <strong>Statistics Type</strong>, select <strong>Virtual Servers</strong></p>
+<a class="reference internal image-reference" href="../../_images/image55.png"><img alt="../../_images/image55.png" src="../../_images/image55.png" style="width: 1225.0px; height: 388.0px;" /></a>
+</li>
+<li><p class="first">Check that the virtual server is synced to BIG-IP1 (same public IP, port 8444).</p>
+<ul class="simple">
+<li>Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444</li>
+<li>From the BIG-IP GUI, go to <strong>Local traffic -&gt; Virtual Servers -&gt; Virtual Server List</strong></li>
+<li>Verify that new virtual server “vs_wordpress” is successfully synced</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only">
+<h1>2.3.6. Task 5 – Restrict access to WordPress through the F5 BIG-IP only<a class="headerlink" href="#task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only" title="Permalink to this headline">¶</a></h1>
+<p>This task involves locking down the network security group to restrict
+access to the WordPress application. We only want to allow access
+through the F5. Currently access still works direct to the WordPress
+application via public IP address http://&lt;wordpress-public-IP&gt; as
+demonstrated in the previous task. You now need to modify
+the network security group to remove direct inbound access to the
+WordPress application. Let’s go back to the Azure Portal.</p>
+<ol class="arabic">
+<li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">Select your WordPress Network security group</p>
+<a class="reference internal image-reference" href="../../_images/image133.png"><img alt="../../_images/image133.png" src="../../_images/image133.png" style="width: 967.0px; height: 675.0px;" /></a>
+</li>
+<li><p class="first">Remove the HTTP and HTTPS inbound rules while leaving only SSH access</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You will only allow web access to the WordPress blog via the F5 BIG-IP.</p>
+</div>
+<a class="reference internal image-reference" href="../../_images/image44.png"><img alt="../../_images/image44.png" src="../../_images/image44.png" style="width: 918.0px; height: 192.0px;" /></a>
+</li>
+<li><p class="first">Click on the <strong>…</strong> link at the far right side of the rule to be deleted</p>
+<a class="reference internal image-reference" href="../../_images/image45.png"><img alt="../../_images/image45.png" src="../../_images/image45.png" style="width: 903.0px; height: 132.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>Delete</strong></p>
+</li>
+<li><p class="first">Confirm the delete action when prompted by clicking <strong>Yes</strong></p>
+</li>
+<li><p class="first">Now it’s time to confirm web access has been restricted to WordPress.
+Open a private browser window (not a normal window…choose <strong>private</strong>)</p>
+</li>
+<li><p class="first">Verify that https://&lt;WordPress-Public-IP&gt; and http://&lt;WordPress-Public-IP&gt;
+do <em>NOT</em> display the WordPress blog</p>
+<a class="reference internal image-reference" href="../../_images/image134.png"><img alt="../../_images/image134.png" src="../../_images/image134.png" style="width: 793.0px; height: 551.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should now have an active/active F5 pair running in Azure with the
+WordPress application as a pool member. Traffic should flow successfully
+through the F5. However, traffic should fail if going direct to WordPress.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="task-6-test-ha-within-azure">
+<h1>2.3.7. Task 6 – Test HA within Azure<a class="headerlink" href="#task-6-test-ha-within-azure" title="Permalink to this headline">¶</a></h1>
+<p>In this task you will perform a system failover and validate that the
+WordPress application remains available.</p>
+<ol class="arabic">
+<li><p class="first">Open two separate <em>private</em> browser windows</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Use private browser windows to have both GUIs open at the same time.
+Since both BIG-IPs have the same IP, you cannot have two GUIs opened
+at the same time in one browser (it saves cookies).</p>
+</div>
+</li>
+<li><p class="first">Connect to the BIG-IP0 using https://&lt;public-IP&gt;:8443</p>
+</li>
+<li><p class="first">Go to <strong>Device Management -&gt; Devices</strong></p>
+<a class="reference internal image-reference" href="../../_images/image135.png"><img alt="../../_images/image135.png" src="../../_images/image135.png" style="width: 1087.0px; height: 483.0px;" /></a>
+</li>
+<li><p class="first">Select <strong>bigip0.azure.local (Self)</strong></p>
+<a class="reference internal image-reference" href="../../_images/image136.png"><img alt="../../_images/image136.png" src="../../_images/image136.png" style="width: 717.0px; height: 705.5px;" /></a>
+</li>
+<li><p class="first">Scroll to the bottom of the page</p>
+</li>
+<li><p class="first">Click <strong>Force Offline</strong></p>
+</li>
+<li><p class="first">Observe that you can still access WordPress.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Traffic flow is successful because the Azure LB is routing traffic
+to the other F5 instance.</p>
+</div>
+<p>Try forcing both F5 BIG-IPs offline and access the WordPress site again.</p>
+</li>
+<li><p class="first">Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444 and repeat the
+same <strong>Force Offline</strong> procedure</p>
+<ul class="simple">
+<li>Go to <strong>Device Management -&gt; Devices</strong></li>
+<li>Select <strong>bigip0.azure.local (Self)</strong></li>
+<li>Scroll to the bottom of the page</li>
+<li>Click <strong>Force Offline</strong></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Were you able to access WordPress?</p>
+</div>
+<p>The next test is to bring one or both F5 instances back online and then
+test WordPress again.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You will need to “Release Offline” one of the BIG-IPs.</p>
+</div>
+</li>
+<li><p class="first">Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444</p>
+</li>
+<li><p class="first">Go to <strong>Device Management</strong></p>
+</li>
+<li><p class="first">Select <strong>bigip1.azure.com (Self)</strong></p>
+</li>
+<li><p class="first">Scroll to the bottom of the page</p>
+</li>
+<li><p class="first">Click <strong>Release Offline</strong></p>
+<a class="reference internal image-reference" href="../../_images/image137.png"><img alt="../../_images/image137.png" src="../../_images/image137.png" style="width: 836.0px; height: 819.0px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Can you access the site now? Check that http://&lt;public-IP&gt; is available.</p>
+</div>
+<a class="reference internal image-reference" href="../../_images/image56.gif"><img alt="../../_images/image56.gif" src="../../_images/image56.gif" style="width: 93.5px; height: 93.5px;" /></a>
+</li>
+</ol>
+<p><strong>This concludes Lab 3</strong></p>
+</div>
+<div class="section" id="appendix-troubleshooting">
+<h1>2.3.8. Appendix – Troubleshooting<a class="headerlink" href="#appendix-troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>[azureuser&#64;bigip0:Active:In Sync] ~ # tmsh run cm sniff-updates</p>
+<p>Listening for commit_id_update on -i internal:h port 6699 (^C to exit)</p>
+<p>[10:30:53] bigip0.azure.local (v13.0.0) -&gt; bigip-azure-sync-failover:
+UPDATE CID 75.0 (bigip0.azure.local) at 10:30:53 FORCE_SYNC</p>
+<p>[10:30:53] 10.10.1.101:42506 -&gt; bigip-azure-sync-failover: SYNC_REQ CID
+1.0 (bigip0.azure.local) at 10:25:34</p>
+<p>[10:30:53] bigip1.azure.local (v13.0.0) -&gt; bigip-azure-sync-failover:
+UPDATE CID 75.0 (bigip0.azure.local) at 10:30:53 FORCE_SYNC</p>
+<p>[10:32:27] bigip1.azure.local (v13.0.0) -&gt; bigip-azure-sync-failover:
+UPDATE CID 31.0 (bigip1.azure.local) at 10:32:27 FORCE_SYNC</p>
+<p>[10:32:27] 10.10.1.100:59354 -&gt; bigip-azure-sync-failover: SYNC_REQ CID
+75.0 (bigip0.azure.local) at 10:30:53</p>
+<p>[10:32:27] bigip0.azure.local (v13.0.0) -&gt; bigip-azure-sync-failover:
+UPDATE CID 31.0 (bigip1.azure.local) at 10:32:27 FORCE_SYNC</p>
 </div>
 
 
@@ -309,7 +874,7 @@ guidelines.</p>
 		     <div class="row next-prev-btn-row">
            <div class="col-lg-12">
            
-		        <a href="module3.html" title="2.3. Module 3 – Deploy an F5 BIG-IP active/active HA pair using ARM templates" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
+		        <a href="module3.html" title="2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
            
            
               <a href="../../examples.html" title="3. Examples of Common Formatting" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
