@@ -202,10 +202,14 @@ Let's get started.
 
       -  Notice “Validation passed”
       -  Notice the F5 license BYOL is *not* charged
-      -  Notice the VM where the BIG-IP VE will reside is charged.
+      -  Notice the VM where the BIG-IP VE will reside is charged
 
-   .. image:: /_static/image15.png
+   .. image:: /_static/image15-top.png
       :scale: 50 %
+
+#. Supply your email and phone number for validation
+
+   .. image:: /_static/lab-instance-validation.png
 
 #. Click **Purchase** or **Create**
 
@@ -394,7 +398,7 @@ the BIG-IP's public IP address to which you will connect.
 
    .. admonition:: TMSH 
 
-      tmsh modify auth user f5bigipuserx password "Demo123"
+      tmsh modify auth user f5bigipuserx password Demo123
 
    Example:
 
@@ -530,10 +534,14 @@ the Microsoft Azure Portal.
 #. Click **OK**
 #. Verify the summary
 
-   .. image:: /_static/image37.png
+   .. image:: /_static/image37-top.png
       :scale: 50 %
 
-#. Click **Create**
+#. Supply your email and phone number for validation
+
+   .. image:: /_static/lab-instance-validation.png
+
+#. Click **Purchase** or **Create**
 #. Go to **Resource groups** and click on your resource group
 #. Select your WordPress “Public IP address”
 

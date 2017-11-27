@@ -235,8 +235,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../examples.html">3. Examples of Common Formatting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../markdown.html">4. Markdown files are also supported</a></li>
 </ul>
 
   <h4>Previous topic</h4>
@@ -448,9 +446,12 @@ chosen.</p>
 <li><p class="first">Click <strong>OK</strong></p>
 </li>
 <li><p class="first">Verify the summary</p>
-<a class="reference internal image-reference" href="../../_images/image37.png"><img alt="../../_images/image37.png" src="../../_images/image37.png" style="width: 586.5px; height: 431.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image37-top.png"><img alt="../../_images/image37-top.png" src="../../_images/image37-top.png" style="width: 586.5px; height: 287.5px;" /></a>
 </li>
-<li><p class="first">Click <strong>Create</strong></p>
+<li><p class="first">Supply your email and phone number for validation</p>
+<img alt="../../_images/lab-instance-validation.png" src="../../_images/lab-instance-validation.png" />
+</li>
+<li><p class="first">Click <strong>Purchase</strong> or <strong>Create</strong></p>
 </li>
 <li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
 </li>
@@ -581,20 +582,22 @@ pre-configured F5 WAF:</p>
 <li>“Automatically provisioned”</li>
 <li>“Semi-automatically provisioned”</li>
 </ul>
-<p class="last">For this lab you will be using the <strong>“Automatically provisioned”</strong> method.</p>
+<p class="last">For this lab you will be using the <strong>“Semi-automatically provisioned”</strong> method.
+The former will most likely be depracated. The latter, semi-automatically provisioned,
+gives the user more control in the deployment.</p>
 </div>
 </li>
-<li><p class="first">Select the option for <strong>Automatically provisioned</strong></p>
-<a class="reference internal image-reference" href="../../_images/image71.png"><img alt="../../_images/image71.png" src="../../_images/image71.png" style="width: 628.0px; height: 261.0px;" /></a>
+<li><p class="first">Select the option for <strong>Semi-automatically provisioned</strong></p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf01.png"><img alt="../../_images/lab02-waf01.png" src="../../_images/lab02-waf01.png" style="width: 578.0px; height: 365.5px;" /></a>
 </li>
 <li><p class="first">Click <strong>Create</strong></p>
-<p>Use the information in Table 2.5 to complete the “VM Configuration” page
+<p>Use the information in Table 2.5 to complete the “Basics” page
 during this deployment. Leave all other settings as default.</p>
 <p>Table 2.5</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="52%" />
-<col width="48%" />
+<col width="32%" />
+<col width="68%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key</th>
@@ -602,15 +605,21 @@ during this deployment. Leave all other settings as default.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>Password</td>
-<td>Demo123</td>
+<tr class="row-even"><td>Subscription</td>
+<td>&lt;User Unique&gt;</td>
+</tr>
+<tr class="row-odd"><td>Resource Group</td>
+<td>Create new: wordpress-acs&lt;student number&gt;</td>
+</tr>
+<tr class="row-even"><td>Location</td>
+<td>&lt;User Unique&gt;</td>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/image72.png"><img alt="../../_images/image72.png" src="../../_images/image72.png" style="width: 449.0px; height: 384.5px;" /></a>
+<a class="reference internal image-reference" href="../../_images/lab02-waf02.png"><img alt="../../_images/lab02-waf02.png" src="../../_images/lab02-waf02.png" style="width: 310.5px; height: 367.0px;" /></a>
 </li>
 <li><p class="first">Click <strong>OK</strong></p>
-<p>Use the information in Table 2.6 to complete the “WAF Information” page
+<p>Use the information in Table 2.6 to complete the “Insfrastructure Settings” page
 during this deployment. Leave all other options as default.</p>
 <p>Table 2.6</p>
 <table border="1" class="docutils">
@@ -624,20 +633,106 @@ during this deployment. Leave all other options as default.</p>
 </tr>
 </thead>
 <tbody valign="top">
+<tr class="row-even"><td>Deployment Name</td>
+<td>F5waf&lt;student number&gt;</td>
+</tr>
+<tr class="row-odd"><td>BIG-IP Version</td>
+<td>Choose latest 13x available</td>
+</tr>
+<tr class="row-even"><td>F5 WAF Password</td>
+<td>Demo123Demo123!</td>
+</tr>
+<tr class="row-odd"><td>Confirm Password</td>
+<td>Demo123Demo123!</td>
+</tr>
 <tr class="row-even"><td>License token</td>
 <td>&lt;license provided by the proctor&gt;</td>
 </tr>
-<tr class="row-odd"><td>Internal server port</td>
-<td>HTTP (note two locations)</td>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/lab02-waf03.png"><img alt="../../_images/lab02-waf03.png" src="../../_images/lab02-waf03.png" style="width: 311.0px; height: 366.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+<p>Use the information in Table 2.7 to complete the “Network Settings” page
+during this deployment. Leave all other options as default.</p>
+<p>Table 2.7</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Domain name label</td>
+<td>f5waf&lt;student number&gt;</td>
+</tr>
+<tr class="row-odd"><td>Subnets</td>
+<td>You’ll need to hit <strong>Configure Subnets</strong></td>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/image73.png"><img alt="../../_images/image73.png" src="../../_images/image73.png" style="width: 677.0px; height: 733.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/lab02-waf04.png"><img alt="../../_images/lab02-waf04.png" src="../../_images/lab02-waf04.png" style="width: 312.5px; height: 281.0px;" /></a>
 </li>
-<li><p class="first">Click <strong>OK</strong></p>
+<li><p class="first">Select <strong>Configure Subnets</strong></p>
+</li>
+<li><p class="first">Leave all options as default on the “Subnets” page</p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf05.png"><img alt="../../_images/lab02-waf05.png" src="../../_images/lab02-waf05.png" style="width: 156.5px; height: 224.5px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong> to go back to the “Network Settings” page.</p>
+</li>
+<li><p class="first">Notice the “Subnets” field will change to <em>Review subnet configuration</em>.</p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf06.png"><img alt="../../_images/lab02-waf06.png" src="../../_images/lab02-waf06.png" style="width: 313.0px; height: 365.5px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is no need to hit <strong>Review subnet configuration</strong>. This simply means
+there are now subnets configured whereas before there were none.</p>
+</div>
+</li>
+<li><p class="first">On the “Network Settings”, click <strong>OK</strong> to proceed to the next page</p>
+<p>Use the information in Table 2.8 to complete the “Application Settings” page
+during this deployment. Leave all other options as default.</p>
+<p>Table 2.8</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Application Protocol(s)</td>
+<td>HTTP</td>
+</tr>
+<tr class="row-odd"><td>Application Address</td>
+<td>&lt;wordpress-public-IP&gt;</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="../../_images/lab02-waf07.png"><img alt="../../_images/lab02-waf07.png" src="../../_images/lab02-waf07.png" style="width: 307.0px; height: 368.0px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong> to proceed to the next page</p>
+</li>
+<li><p class="first">Review the “Summary Page”. You should receive <strong>Validation passed</strong></p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf08.png"><img alt="../../_images/lab02-waf08.png" src="../../_images/lab02-waf08.png" style="width: 295.5px; height: 362.5px;" /></a>
+</li>
+<li><p class="first">Click <strong>OK</strong> to proceed to the next page</p>
+</li>
+<li><p class="first">Review the “Terms and use” page</p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf09-top.png"><img alt="../../_images/lab02-waf09-top.png" src="../../_images/lab02-waf09-top.png" style="width: 278.5px; height: 220.0px;" /></a>
+</li>
+<li><p class="first">Scroll down to review the remaining “Terms and use” page</p>
+</li>
+<li><p class="first">Supply your email and phone number for validation</p>
+<a class="reference internal image-reference" href="../../_images/lab02-waf09-bottom.png"><img alt="../../_images/lab02-waf09-bottom.png" src="../../_images/lab02-waf09-bottom.png" style="width: 278.0px; height: 216.5px;" /></a>
 </li>
 <li><p class="first">Click <strong>Create</strong></p>
-<a class="reference internal image-reference" href="../../_images/image74.png"><img alt="../../_images/image74.png" src="../../_images/image74.png" style="width: 336.0px; height: 441.0px;" /></a>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Deployment time can take up to 30 minutes.</p>

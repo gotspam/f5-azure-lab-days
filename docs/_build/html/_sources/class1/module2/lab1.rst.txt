@@ -155,10 +155,14 @@ the Microsoft Azure Portal.
 #. Click **OK**
 #. Verify the summary
 
-   .. image:: /_static/image37.png
+   .. image:: /_static/image37-top.png
       :scale: 50 %
 
-#. Click **Create**
+#. Supply your email and phone number for validation
+
+   .. image:: /_static/lab-instance-validation.png
+
+#. Click **Purchase** or **Create**
 #. Go to **Resource groups** and click on your resource group
 #. Select your WordPress “Public IP address”
 
@@ -293,32 +297,38 @@ of your WordPress application.
       - “Automatically provisioned”
       - “Semi-automatically provisioned”
 
-      For this lab you will be using the **“Automatically provisioned”** method.
+      For this lab you will be using the **“Semi-automatically provisioned”** method.
+      The former will most likely be depracated. The latter, semi-automatically provisioned,
+      gives the user more control in the deployment.
 
-#. Select the option for **Automatically provisioned**
+#. Select the option for **Semi-automatically provisioned**
 
-   .. image:: /_static/image71.png
+   .. image:: /_static/lab02-waf01.png
       :scale: 50 %
 
 #. Click **Create**
 
-   Use the information in Table 2.5 to complete the “VM Configuration” page
+   Use the information in Table 2.5 to complete the “Basics” page
    during this deployment. Leave all other settings as default.
 
    Table 2.5
 
-   +------------+-----------+
-   | Key        | Value     |
-   +============+===========+
-   | Password   | Demo123   |
-   +------------+-----------+
+   +-----------------------+-------------------------------------------------+
+   | Key                   | Value                                           |
+   +=======================+=================================================+
+   | Subscription          | <User Unique>                                   |
+   +-----------------------+-------------------------------------------------+
+   | Resource Group        | Create new: wordpress-acs<student number>       |
+   +-----------------------+-------------------------------------------------+
+   | Location              | <User Unique>                                   |
+   +-----------------------+-------------------------------------------------+
 
-   .. image:: /_static/image72.png
+   .. image:: /_static/lab02-waf02.png
       :scale: 50 %
 
 #. Click **OK**
 
-   Use the information in Table 2.6 to complete the “WAF Information” page
+   Use the information in Table 2.6 to complete the “Insfrastructure Settings” page
    during this deployment. Leave all other options as default.
 
    Table 2.6
@@ -326,20 +336,91 @@ of your WordPress application.
    +------------------------+-------------------------------------+
    | Key                    | Value                               |
    +========================+=====================================+
+   | Deployment Name        | F5waf<student number>               |
+   +------------------------+-------------------------------------+
+   | BIG-IP Version         | Choose latest 13x available         |
+   +------------------------+-------------------------------------+
+   | F5 WAF Password        | Demo123Demo123!                     |
+   +------------------------+-------------------------------------+
+   | Confirm Password       | Demo123Demo123!                     |
+   +------------------------+-------------------------------------+
    | License token          | <license provided by the proctor>   |
    +------------------------+-------------------------------------+
-   | Internal server port   | HTTP (note two locations)           |
-   +------------------------+-------------------------------------+
 
-   .. image:: /_static/image73.png
+   .. image:: /_static/lab02-waf03.png
       :scale: 50 %
 
 #. Click **OK**
-#. Click **Create**
 
-   .. image:: /_static/image74.png
+   Use the information in Table 2.7 to complete the “Network Settings” page
+   during this deployment. Leave all other options as default.
+
+   Table 2.7
+
+   +------------------------+---------------------------------------------+
+   | Key                    | Value                                       |
+   +========================+=============================================+
+   | Domain name label      | f5waf<student number>                       |
+   +------------------------+---------------------------------------------+
+   | Subnets                | You'll need to hit **Configure Subnets**    |
+   +------------------------+---------------------------------------------+
+
+   .. image:: /_static/lab02-waf04.png
       :scale: 50 %
 
+#. Select **Configure Subnets**
+#. Leave all options as default on the "Subnets" page
+
+   .. image:: /_static/lab02-waf05.png
+      :scale: 50 %
+
+#. Click **OK** to go back to the "Network Settings" page.
+#. Notice the "Subnets" field will change to *Review subnet configuration*.
+
+   .. image:: /_static/lab02-waf06.png
+      :scale: 50 %
+
+   .. Note::
+      There is no need to hit **Review subnet configuration**. This simply means
+      there are now subnets configured whereas before there were none.
+
+#. On the "Network Settings", click **OK** to proceed to the next page
+
+   Use the information in Table 2.8 to complete the “Application Settings” page
+   during this deployment. Leave all other options as default.
+
+   Table 2.8
+
+   +----------------------------------------+----------------------------------------+
+   | Key                                    | Value                                  |
+   +========================================+========================================+
+   | Application Protocol(s)                | HTTP                                   |
+   +----------------------------------------+----------------------------------------+
+   | Application Address                    | <wordpress-public-IP>                  |
+   +----------------------------------------+----------------------------------------+
+
+   .. image:: /_static/lab02-waf07.png
+      :scale: 50 %
+
+#. Click **OK** to proceed to the next page
+#. Review the "Summary Page". You should receive **Validation passed**
+
+   .. image:: /_static/lab02-waf08.png
+      :scale: 50 %
+
+#. Click **OK** to proceed to the next page
+#. Review the "Terms and use" page
+
+   .. image:: /_static/lab02-waf09-top.png
+      :scale: 50 %
+
+#. Scroll down to review the remaining "Terms and use" page
+#. Supply your email and phone number for validation
+
+   .. image:: /_static/lab02-waf09-bottom.png
+      :scale: 50 %
+
+#. Click **Create**
 
    .. Note::
       Deployment time can take up to 30 minutes.
