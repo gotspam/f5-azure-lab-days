@@ -562,7 +562,7 @@ the Microsoft Azure Portal.
    **For Linux / Mac Users:**
 
    - Open the CLI
-   - Connect using ``ssh -i <private_key> f5bigipuser<Student Number>@@<WordPress VM public IP>``
+   - Connect using ``ssh -i <private_key> f5bigipuser<Student Number>@<WordPress VM public IP>``
 
    .. Note::
       The reference to **private_key** is the file corresponding to the

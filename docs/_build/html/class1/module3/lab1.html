@@ -28,7 +28,6 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. Examples of Common Formatting" href="../../examples.html" />
     <link rel="prev" title="2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates" href="module3.html" />
 <!--
 # Copyright 2017 F5 Networks
@@ -235,16 +234,11 @@
 <li class="toctree-l2 current"><a class="reference internal" href="module3.html">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../examples.html">3. Examples of Common Formatting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../markdown.html">4. Markdown files are also supported</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="module3.html"
                         title="previous chapter">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../../examples.html"
-                        title="next chapter">3. Examples of Common Formatting</a></p>
         
       </div>
       <div class="col-md-offset-3 col-sm-offset-3 main">
@@ -275,7 +269,7 @@ template options.</p>
 familiar with the template, prerequisites, topology, and more.</p>
 <div class="section" id="lab-3-topology">
 <h2>2.3.1.1. Lab 3 – Topology<a class="headerlink" href="#lab-3-topology" title="Permalink to this headline">¶</a></h2>
-<a class="reference internal image-reference" href="../../_images/lab-3-topology.png"><img alt="../../_images/lab-3-topology.png" src="../../_images/lab-3-topology.png" style="width: 278.5px; height: 371.5px;" /></a>
+<img alt="../../_images/lab-3-topology.png" src="../../_images/lab-3-topology.png" />
 </div>
 </div>
 <div class="section" id="task-1-deploy-an-arm-template">
@@ -400,9 +394,8 @@ to the Azure Portal.</p>
 <p class="last">This load balancer is an Azure Load Balancer (ALB) which will be in
 front of the two BIG-IPs and used to support the setup of the cluster.</p>
 </div>
-<p>The ALB has some important NAT and load balancing rules to explore. You
-will need to identify the different NAT rules that have been deployed
-in addition to the load balancing rules. Review the NAT rules first.</p>
+<p>The ALB has some important NAT rules to explore. These will direct
+management traffic to the appropriate F5. Review the NAT rules first.</p>
 </li>
 <li><p class="first">From the Resource Group, click <strong>Inbound NAT rules</strong></p>
 <a class="reference internal image-reference" href="../../_images/image97.png"><img alt="../../_images/image97.png" src="../../_images/image97.png" style="width: 682.0px; height: 279.0px;" /></a>
@@ -422,12 +415,77 @@ F5 BIG-IPs sitting behind the Azure ALB</p>
 <p class="last">Take note of these IP addresses. These are the applications running
 on the F5 instances. The ALB is load balancing each F5 in active/active.</p>
 </div>
-<p>Next you will look at the load balancing rules. Look at the rules for HTTP and
-HTTPS applications as well as the ports used on the backend. Azure Load
-Balancer uses NAT to direct traffic to the different service ports.</p>
+<p>Next you will need to create some Azure load balancing rules. These will
+help direct client/server traffic to the appropriate F5 based on F5
+health within the active/active cluster. However, first Azure requires
+that health probes are created.</p>
+</li>
+<li><p class="first">From the Resource Group, click <strong>Health probes</strong></p>
+</li>
+<li><p class="first">Then click the <strong>+ Add</strong> button</p>
+<img alt="../../_images/lab03-arm01.png" src="../../_images/lab03-arm01.png" />
+<p>Use the information provided in Table 3.2 to complete the “Add health probe”
+page. Leave all other settings as default.</p>
+<p>Table 3.2</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>lbprobeHTTP1</td>
+</tr>
+<tr class="row-odd"><td>Protocol</td>
+<td>HTTP</td>
+</tr>
+<tr class="row-even"><td>Port</td>
+<td>8081</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/lab03-arm02.png" src="../../_images/lab03-arm02.png" />
+</li>
+<li><p class="first">Scroll down and select <strong>OK</strong> and the results will show one new health probe</p>
+<img alt="../../_images/lab03-arm03.png" src="../../_images/lab03-arm03.png" />
+<p>The health probe is created and now you’ll need to create the
+Azure load balancing rules.</p>
 </li>
 <li><p class="first">From the Resource Group, click <strong>Load balancing rules</strong></p>
-<a class="reference internal image-reference" href="../../_images/image99.png"><img alt="../../_images/image99.png" src="../../_images/image99.png" style="width: 717.0px; height: 349.5px;" /></a>
+</li>
+<li><p class="first">Then click the <strong>+ Add</strong> button</p>
+<img alt="../../_images/lab03-arm04.png" src="../../_images/lab03-arm04.png" />
+<p>Use the information provided in Table 3.3 to complete the “Add load balancing rule”
+page. Leave all other settings as default.</p>
+<p>Table 3.3</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>APP1-HTTP</td>
+</tr>
+<tr class="row-odd"><td>Backend port</td>
+<td>8081</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/lab03-arm05.png" src="../../_images/lab03-arm05.png" />
+</li>
+<li><p class="first">Scroll down and select <strong>OK</strong> and the results will show one new load balancing rule</p>
+<img alt="../../_images/lab03-arm06.png" src="../../_images/lab03-arm06.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Take note of the different port mappings.</p>
@@ -442,7 +500,7 @@ identify the BIG-IPs’ public IP addresses.</p>
 <a class="reference internal image-reference" href="../../_images/image101.png"><img alt="../../_images/image101.png" src="../../_images/image101.png" style="width: 489.5px; height: 179.5px;" /></a>
 </li>
 <li><p class="first">Then click the other F5 virtual machine and notice that both F5 BIG-IPs have
-the same publick IP address.</p>
+the same public IP address</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">You can access each individual unit by using the service ports identified
@@ -475,9 +533,9 @@ search field and hit <strong>Enter</strong></p>
 <a class="reference internal image-reference" href="../../_images/image33.png"><img alt="../../_images/image33.png" src="../../_images/image33.png" style="width: 605.0px; height: 445.0px;" /></a>
 </li>
 <li><p class="first">Click on <strong>Create</strong> at the bottom of the screen</p>
-<p>Use the information in Table 3.2 to complete the “Basics” configuration
+<p>Use the information in Table 3.4 to complete the “Basics” configuration
 page during this deployment.</p>
-<p>Table 3.2</p>
+<p>Table 3.4</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="37%" />
@@ -521,9 +579,9 @@ page during this deployment.</p>
 <a class="reference internal image-reference" href="../../_images/image120.png"><img alt="../../_images/image120.png" src="../../_images/image120.png" style="width: 676.0px; height: 707.0px;" /></a>
 </li>
 <li><p class="first">Click <strong>OK</strong> at the bottom of the page</p>
-<p>Use the information in Table 3.3 to complete the “Choose a size” configuration
+<p>Use the information in Table 3.5 to complete the “Choose a size” configuration
 page during this deployment.</p>
-<p>Table 3.3</p>
+<p>Table 3.5</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="52%" />
@@ -553,9 +611,9 @@ page during this deployment.</p>
 <p class="last">On the Settings page you’ll see a warning concerning the VM size
 chosen.</p>
 </div>
-<p>Use the information in Table 3.4 to complete the “Settings”
+<p>Use the information in Table 3.6 to complete the “Settings”
 configuration page during this deployment.</p>
-<p>Table 3.4</p>
+<p>Table 3.6</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="70%" />
@@ -586,9 +644,12 @@ configuration page during this deployment.</p>
 <li><p class="first">Click <strong>OK</strong></p>
 </li>
 <li><p class="first">Verify the summary</p>
-<a class="reference internal image-reference" href="../../_images/image37.png"><img alt="../../_images/image37.png" src="../../_images/image37.png" style="width: 586.5px; height: 431.0px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image37-top.png"><img alt="../../_images/image37-top.png" src="../../_images/image37-top.png" style="width: 586.5px; height: 287.5px;" /></a>
 </li>
-<li><p class="first">Click <strong>Create</strong></p>
+<li><p class="first">Supply your email and phone number for validation</p>
+<img alt="../../_images/lab-instance-validation.png" src="../../_images/lab-instance-validation.png" />
+</li>
+<li><p class="first">Click <strong>Purchase</strong> or <strong>Create</strong></p>
 </li>
 <li><p class="first">Go to <strong>Resource groups</strong> and click on your resource group</p>
 </li>
@@ -620,8 +681,8 @@ to the Microsoft Azure Portal.</p>
 </li>
 <li><p class="first">From the BIG-IP GUI, go to <strong>Local traffic -&gt; Pools -&gt; Pool List</strong> and
 click on the <strong>+</strong> sign. Configure the pool using the information provided
-in Table 3.5 below leaving all other fields set to defaults.</p>
-<p>Table 3.5</p>
+in Table 3.7 below leaving all other fields set to defaults.</p>
+<p>Table 3.7</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -676,8 +737,8 @@ special type of VS that listens on all IP addresses/ports and looks like 0.0.0.0
 <li><p class="first">Create a virtual server by going to
 <strong>Local Traffic -&gt; Virtual Servers -&gt; Virtual Server List</strong> and click
 on the <strong>+</strong> sign. Configure the Virtual Server using the information
-provided in Table 3.6 below leaving all other fields set to defaults.</p>
-<p>Table 3.6</p>
+provided in Table 3.8 below leaving all other fields set to defaults.</p>
+<p>Table 3.8</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="61%" />
@@ -713,11 +774,80 @@ provided in Table 3.6 below leaving all other fields set to defaults.</p>
 </li>
 <li><p class="first">Check the virtual server is green</p>
 <a class="reference internal image-reference" href="../../_images/image130.png"><img alt="../../_images/image130.png" src="../../_images/image130.png" style="width: 718.5px; height: 161.5px;" /></a>
-<p>You have now completed the BIG-IP configuration for the WordPress
-application. To verify proper functionality, let’s browse the site and
+</li>
+<li><p class="first">Check that the virtual server is synced to BIG-IP1 (same public IP, port 8444).</p>
+<ul class="simple">
+<li>Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444</li>
+<li>From the BIG-IP GUI, go to <strong>Local traffic -&gt; Virtual Servers -&gt; Virtual Server List</strong></li>
+<li>Verify that new virtual server “vs_wordpress” is successfully synced</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since the virtual server is listening on port 8081, make sure
+the network security group for the Azure F5 instance allows
+port 8081. We’ll take care of that in the next steps.</p>
+</div>
+</li>
+<li><p class="first">Go back to <strong>Resource groups</strong> and click on your resource group</p>
+</li>
+<li><p class="first">Select your F5 Network security group</p>
+<img alt="../../_images/lab03-arm07.png" src="../../_images/lab03-arm07.png" />
+</li>
+<li><p class="first">Select <strong>Inbound security rules</strong> and review the current ruleset</p>
+<img alt="../../_images/lab03-arm08.png" src="../../_images/lab03-arm08.png" />
+</li>
+<li><p class="first">Click <strong>+ Add</strong></p>
+<p>Using the information provided in Table 3.9, add a rule to allow traffic to
+the new application on port 8081.</p>
+<p>Table 3.9</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Source</td>
+<td>Any</td>
+</tr>
+<tr class="row-odd"><td>Source Port</td>
+<td>*</td>
+</tr>
+<tr class="row-even"><td>Destination</td>
+<td>Any</td>
+</tr>
+<tr class="row-odd"><td>Destination Port</td>
+<td>8081</td>
+</tr>
+<tr class="row-even"><td>Protocol</td>
+<td>Any</td>
+</tr>
+<tr class="row-odd"><td>Action</td>
+<td>Allow</td>
+</tr>
+<tr class="row-even"><td>Priority</td>
+<td>103</td>
+</tr>
+<tr class="row-odd"><td>Name</td>
+<td>f5-allow-8081</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/lab03-arm09.png" src="../../_images/lab03-arm09.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This new inbound rule allows the client/server traffic to traverse
+the Azure load balancer, then hit the F5 virtual server on port 8081,
+then load balance to the WordPress server.</p>
+</div>
+<p>To verify proper functionality, let’s browse the site and
 verify F5 statistics.</p>
 </li>
-<li><p class="first">Open a browser to to http://&lt;public-IP&gt; and ensure it
+<li><p class="first">Open a browser to to http://&lt;alb-public-IP&gt; and ensure it
 displays your WordPress blog.</p>
 <a class="reference internal image-reference" href="../../_images/image01-wordpress.png"><img alt="../../_images/image01-wordpress.png" src="../../_images/image01-wordpress.png" style="width: 640.5px; height: 450.5px;" /></a>
 </li>
@@ -726,13 +856,8 @@ by navigating to <strong>Statistics -&gt; Module Statistics -&gt; Local Traffic<
 </li>
 <li><p class="first">Under <strong>Statistics Type</strong>, select <strong>Virtual Servers</strong></p>
 <a class="reference internal image-reference" href="../../_images/image55.png"><img alt="../../_images/image55.png" src="../../_images/image55.png" style="width: 1225.0px; height: 388.0px;" /></a>
-</li>
-<li><p class="first">Check that the virtual server is synced to BIG-IP1 (same public IP, port 8444).</p>
-<ul class="simple">
-<li>Connect to the BIG-IP1 using https://&lt;public-IP&gt;:8444</li>
-<li>From the BIG-IP GUI, go to <strong>Local traffic -&gt; Virtual Servers -&gt; Virtual Server List</strong></li>
-<li>Verify that new virtual server “vs_wordpress” is successfully synced</li>
-</ul>
+<p>You have now completed the BIG-IP configuration for the WordPress
+application. There are still some Azure tasks to complete.</p>
 </li>
 </ol>
 </div>
@@ -876,8 +1001,6 @@ UPDATE CID 31.0 (bigip1.azure.local) at 10:32:27 FORCE_SYNC</p>
            
 		        <a href="module3.html" title="2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
            
-           
-              <a href="../../examples.html" title="3. Examples of Common Formatting" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
            
 		     </div>
          </div>

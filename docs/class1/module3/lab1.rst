@@ -27,7 +27,6 @@ Lab 3 – Topology
 ~~~~~~~~~~~~~~~~
 
 .. image:: /_static/lab-3-topology.png
-   :scale: 50 %
 
 Task 1 – Deploy an ARM template 
 -------------------------------
@@ -143,9 +142,8 @@ to the Azure Portal.
       This load balancer is an Azure Load Balancer (ALB) which will be in
       front of the two BIG-IPs and used to support the setup of the cluster.
 
-   The ALB has some important NAT and load balancing rules to explore. You
-   will need to identify the different NAT rules that have been deployed
-   in addition to the load balancing rules. Review the NAT rules first.
+   The ALB has some important NAT rules to explore. These will direct
+   management traffic to the appropriate F5. Review the NAT rules first.
 
 #. From the Resource Group, click **Inbound NAT rules**
 
@@ -167,14 +165,63 @@ to the Azure Portal.
       Take note of these IP addresses. These are the applications running
       on the F5 instances. The ALB is load balancing each F5 in active/active.
 
-   Next you will look at the load balancing rules. Look at the rules for HTTP and
-   HTTPS applications as well as the ports used on the backend. Azure Load
-   Balancer uses NAT to direct traffic to the different service ports.
+   Next you will need to create some Azure load balancing rules. These will
+   help direct client/server traffic to the appropriate F5 based on F5
+   health within the active/active cluster. However, first Azure requires
+   that health probes are created.
+
+#. From the Resource Group, click **Health probes**
+#. Then click the **+ Add** button
+
+   .. image:: /_static/lab03-arm01.png
+
+   Use the information provided in Table 3.2 to complete the "Add health probe"
+   page. Leave all other settings as default.
+
+   Table 3.2
+
+   +--------------------------+---------------------------------+
+   | Key                      | Value                           |
+   +==========================+=================================+
+   | Name                     | lbprobeHTTP1                    |
+   +--------------------------+---------------------------------+
+   | Protocol                 | HTTP                            |
+   +--------------------------+---------------------------------+
+   | Port                     | 8081                            |
+   +--------------------------+---------------------------------+
+
+   .. image:: /_static/lab03-arm02.png
+   
+#. Scroll down and select **OK** and the results will show one new health probe
+
+   .. image:: /_static/lab03-arm03.png
+
+   The health probe is created and now you'll need to create the
+   Azure load balancing rules.
 
 #. From the Resource Group, click **Load balancing rules**
+#. Then click the **+ Add** button
 
-   .. image:: /_static/image99.png
-      :scale: 50 %
+   .. image:: /_static/lab03-arm04.png
+
+   Use the information provided in Table 3.3 to complete the "Add load balancing rule"
+   page. Leave all other settings as default.
+
+   Table 3.3
+
+   +--------------------------+---------------------------------+
+   | Key                      | Value                           |
+   +==========================+=================================+
+   | Name                     | APP1-HTTP                       |
+   +--------------------------+---------------------------------+
+   | Backend port             | 8081                            |
+   +--------------------------+---------------------------------+
+
+   .. image:: /_static/lab03-arm05.png
+
+#. Scroll down and select **OK** and the results will show one new load balancing rule
+
+   .. image:: /_static/lab03-arm06.png
 
    .. Note::
       Take note of the different port mappings.
@@ -192,7 +239,7 @@ to the Azure Portal.
       :scale: 50 %
 
 #. Then click the other F5 virtual machine and notice that both F5 BIG-IPs have
-   the same publick IP address.
+   the same public IP address
 
    .. Hint::
       You can access each individual unit by using the service ports identified
@@ -228,10 +275,10 @@ the Microsoft Azure Portal.
 
 #. Click on **Create** at the bottom of the screen
 
-   Use the information in Table 3.2 to complete the “Basics” configuration
+   Use the information in Table 3.4 to complete the “Basics” configuration
    page during this deployment.
 
-   Table 3.2
+   Table 3.4
 
    +-----------------------+----------------------------------------+
    | Key                   | Value                                  |
@@ -260,10 +307,10 @@ the Microsoft Azure Portal.
 
 #. Click **OK** at the bottom of the page
 
-   Use the information in Table 3.3 to complete the “Choose a size” configuration
+   Use the information in Table 3.5 to complete the “Choose a size” configuration
    page during this deployment.
 
-   Table 3.3
+   Table 3.5
 
    +-------------+------------+
    | Key         | Value      |
@@ -284,10 +331,10 @@ the Microsoft Azure Portal.
       On the Settings page you’ll see a warning concerning the VM size
       chosen.
 
-   Use the information in Table 3.4 to complete the “Settings”
+   Use the information in Table 3.6 to complete the “Settings”
    configuration page during this deployment.
 
-   Table 3.4
+   Table 3.6
 
    +---------------------+---------+
    | Key                 | Value   |
@@ -307,10 +354,14 @@ the Microsoft Azure Portal.
 #. Click **OK**
 #. Verify the summary
 
-   .. image:: /_static/image37.png
+   .. image:: /_static/image37-top.png
       :scale: 50 %
 
-#. Click **Create**
+#. Supply your email and phone number for validation
+
+   .. image:: /_static/lab-instance-validation.png
+
+#. Click **Purchase** or **Create**
 #. Go to **Resource groups** and click on your resource group
 #. Select your WordPress “Public IP address”
 
@@ -342,9 +393,9 @@ to the Microsoft Azure Portal.
 #. Connect to the BIG-IP0 using \https://<public-IP>:8443
 #. From the BIG-IP GUI, go to **Local traffic -> Pools -> Pool List** and
    click on the **+** sign. Configure the pool using the information provided
-   in Table 3.5 below leaving all other fields set to defaults.
+   in Table 3.7 below leaving all other fields set to defaults.
 
-   Table 3.5
+   Table 3.7
 
    +-------------------+---------------------------------------+
    | Key               | Value                                 |
@@ -387,9 +438,9 @@ to the Microsoft Azure Portal.
 #. Create a virtual server by going to
    **Local Traffic -> Virtual Servers -> Virtual Server List** and click
    on the **+** sign. Configure the Virtual Server using the information
-   provided in Table 3.6 below leaving all other fields set to defaults.
+   provided in Table 3.8 below leaving all other fields set to defaults.
 
-   Table 3.6
+   Table 3.8
 
    +------------------------------+-------------------+
    | Key                          | Value             |
@@ -417,11 +468,64 @@ to the Microsoft Azure Portal.
    .. image:: /_static/image130.png
       :scale: 50 %
 
-   You have now completed the BIG-IP configuration for the WordPress
-   application. To verify proper functionality, let's browse the site and
+#. Check that the virtual server is synced to BIG-IP1 (same public IP, port 8444).
+
+   - Connect to the BIG-IP1 using \https://<public-IP>:8444
+   - From the BIG-IP GUI, go to **Local traffic -> Virtual Servers -> Virtual Server List**
+   - Verify that new virtual server "vs_wordpress" is successfully synced
+
+   .. Note::
+      Since the virtual server is listening on port 8081, make sure
+      the network security group for the Azure F5 instance allows
+      port 8081. We'll take care of that in the next steps.
+
+#. Go back to **Resource groups** and click on your resource group
+#. Select your F5 Network security group
+
+   .. image:: /_static/lab03-arm07.png
+
+#. Select **Inbound security rules** and review the current ruleset
+
+   .. image:: /_static/lab03-arm08.png
+
+#. Click **+ Add**
+
+   Using the information provided in Table 3.9, add a rule to allow traffic to
+   the new application on port 8081.
+
+   Table 3.9
+
+   +--------------------+-------------------+
+   | Key                | Value             |
+   +====================+===================+
+   | Source             | Any               |
+   +--------------------+-------------------+
+   | Source Port        | \*                |
+   +--------------------+-------------------+
+   | Destination        | Any               |
+   +--------------------+-------------------+
+   | Destination Port   | 8081              |
+   +--------------------+-------------------+
+   | Protocol           | Any               |
+   +--------------------+-------------------+
+   | Action             | Allow             |
+   +--------------------+-------------------+
+   | Priority           | 103               |
+   +--------------------+-------------------+
+   | Name               | f5-allow-8081     |
+   +--------------------+-------------------+
+
+   .. image:: /_static/lab03-arm09.png
+
+   .. Note::
+      This new inbound rule allows the client/server traffic to traverse
+      the Azure load balancer, then hit the F5 virtual server on port 8081,
+      then load balance to the WordPress server.
+
+   To verify proper functionality, let's browse the site and
    verify F5 statistics.
 
-#. Open a browser to to \http://<public-IP> and ensure it
+#. Open a browser to to \http://<alb-public-IP> and ensure it
    displays your WordPress blog.
 
    .. image:: /_static/image01-wordpress.png
@@ -434,11 +538,8 @@ to the Microsoft Azure Portal.
    .. image:: /_static/image55.png
       :scale: 50 %
 
-#. Check that the virtual server is synced to BIG-IP1 (same public IP, port 8444).
-
-   - Connect to the BIG-IP1 using \https://<public-IP>:8444
-   - From the BIG-IP GUI, go to **Local traffic -> Virtual Servers -> Virtual Server List**
-   - Verify that new virtual server "vs_wordpress" is successfully synced
+   You have now completed the BIG-IP configuration for the WordPress
+   application. There are still some Azure tasks to complete.
 
 Task 5 – Restrict access to WordPress through the F5 BIG-IP only
 ----------------------------------------------------------------

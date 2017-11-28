@@ -14,7 +14,6 @@ Lab 2 – Topology
 ~~~~~~~~~~~~~~~~
 
    .. image:: /_static/lab-2-topology.png
-      :scale: 50 %
 
 Task 1 – Setup basic cloud components in Azure
 ----------------------------------------------
