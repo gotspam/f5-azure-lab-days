@@ -221,8 +221,9 @@
 <li><a class="reference internal" href="#task-3-access-wordpress-instance-and-launch-a-sql-injection-attack">2.2.4. Task 3 – Access WordPress instance and launch a SQL Injection attack</a></li>
 <li><a class="reference internal" href="#task-4-accept-eula-for-f5-waf-in-azure-marketplace">2.2.5. Task 4 – Accept EULA for F5 WAF in Azure Marketplace</a></li>
 <li><a class="reference internal" href="#task-5-launch-azure-security-center-and-deploy-the-f5-waf">2.2.6. Task 5 – Launch Azure Security Center and deploy the F5 WAF</a></li>
-<li><a class="reference internal" href="#task-6-demonstrate-f5-waf-blocking-functionality">2.2.7. Task 6 – Demonstrate F5 WAF blocking functionality</a></li>
-<li><a class="reference internal" href="#task-7-finalize-the-waf-deployment">2.2.8. Task 7 – Finalize the WAF Deployment</a></li>
+<li><a class="reference internal" href="#task-6-review-f5-waf-configurations-and-policies">2.2.7. Task 6 – Review F5 WAF Configurations and Policies</a></li>
+<li><a class="reference internal" href="#task-7-demonstrate-f5-waf-blocking-functionality">2.2.8. Task 7 – Demonstrate F5 WAF blocking functionality</a></li>
+<li><a class="reference internal" href="#task-8-finalize-the-waf-deployment">2.2.9. Task 8 – Finalize the WAF Deployment</a></li>
 </ul>
 
 
@@ -616,7 +617,7 @@ during this deployment. Leave all other settings as default.</p>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/lab02-waf02.png"><img alt="../../_images/lab02-waf02.png" src="../../_images/lab02-waf02.png" style="width: 310.5px; height: 367.0px;" /></a>
+<img alt="../../_images/lab02-waf02.png" src="../../_images/lab02-waf02.png" />
 </li>
 <li><p class="first">Click <strong>OK</strong></p>
 <p>Use the information in Table 2.6 to complete the “Insfrastructure Settings” page
@@ -650,7 +651,7 @@ during this deployment. Leave all other options as default.</p>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/lab02-waf03.png"><img alt="../../_images/lab02-waf03.png" src="../../_images/lab02-waf03.png" style="width: 311.0px; height: 366.0px;" /></a>
+<img alt="../../_images/lab02-waf03.png" src="../../_images/lab02-waf03.png" />
 </li>
 <li><p class="first">Click <strong>OK</strong></p>
 <p>Use the information in Table 2.7 to complete the “Network Settings” page
@@ -675,17 +676,21 @@ during this deployment. Leave all other options as default.</p>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/lab02-waf04.png"><img alt="../../_images/lab02-waf04.png" src="../../_images/lab02-waf04.png" style="width: 312.5px; height: 281.0px;" /></a>
+<img alt="../../_images/lab02-waf04.png" src="../../_images/lab02-waf04.png" />
 </li>
 <li><p class="first">Select <strong>Configure Subnets</strong></p>
 </li>
 <li><p class="first">Leave all options as default on the “Subnets” page</p>
-<a class="reference internal image-reference" href="../../_images/lab02-waf05.png"><img alt="../../_images/lab02-waf05.png" src="../../_images/lab02-waf05.png" style="width: 156.5px; height: 224.5px;" /></a>
+<img alt="../../_images/lab02-waf05.png" src="../../_images/lab02-waf05.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This will create a 3-nic F5 instance.</p>
+</div>
 </li>
 <li><p class="first">Click <strong>OK</strong> to go back to the “Network Settings” page.</p>
 </li>
 <li><p class="first">Notice the “Subnets” field will change to <em>Review subnet configuration</em>.</p>
-<a class="reference internal image-reference" href="../../_images/lab02-waf06.png"><img alt="../../_images/lab02-waf06.png" src="../../_images/lab02-waf06.png" style="width: 313.0px; height: 365.5px;" /></a>
+<img alt="../../_images/lab02-waf06.png" src="../../_images/lab02-waf06.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">There is no need to hit <strong>Review subnet configuration</strong>. This simply means
@@ -715,22 +720,22 @@ during this deployment. Leave all other options as default.</p>
 </tr>
 </tbody>
 </table>
-<a class="reference internal image-reference" href="../../_images/lab02-waf07.png"><img alt="../../_images/lab02-waf07.png" src="../../_images/lab02-waf07.png" style="width: 307.0px; height: 368.0px;" /></a>
+<img alt="../../_images/lab02-waf07.png" src="../../_images/lab02-waf07.png" />
 </li>
 <li><p class="first">Click <strong>OK</strong> to proceed to the next page</p>
 </li>
 <li><p class="first">Review the “Summary Page”. You should receive <strong>Validation passed</strong></p>
-<a class="reference internal image-reference" href="../../_images/lab02-waf08.png"><img alt="../../_images/lab02-waf08.png" src="../../_images/lab02-waf08.png" style="width: 295.5px; height: 362.5px;" /></a>
+<img alt="../../_images/lab02-waf08.png" src="../../_images/lab02-waf08.png" />
 </li>
 <li><p class="first">Click <strong>OK</strong> to proceed to the next page</p>
 </li>
 <li><p class="first">Review the “Terms and use” page</p>
-<a class="reference internal image-reference" href="../../_images/lab02-waf09-top.png"><img alt="../../_images/lab02-waf09-top.png" src="../../_images/lab02-waf09-top.png" style="width: 278.5px; height: 220.0px;" /></a>
+<img alt="../../_images/lab02-waf09-top.png" src="../../_images/lab02-waf09-top.png" />
 </li>
 <li><p class="first">Scroll down to review the remaining “Terms and use” page</p>
 </li>
 <li><p class="first">Supply your email and phone number for validation</p>
-<a class="reference internal image-reference" href="../../_images/lab02-waf09-bottom.png"><img alt="../../_images/lab02-waf09-bottom.png" src="../../_images/lab02-waf09-bottom.png" style="width: 278.0px; height: 216.5px;" /></a>
+<img alt="../../_images/lab02-waf09-bottom.png" src="../../_images/lab02-waf09-bottom.png" />
 </li>
 <li><p class="first">Click <strong>Create</strong></p>
 <div class="admonition note">
@@ -738,28 +743,34 @@ during this deployment. Leave all other options as default.</p>
 <p class="last">Deployment time can take up to 30 minutes.</p>
 </div>
 </li>
+</ol>
+</div>
+<div class="section" id="task-6-review-f5-waf-configurations-and-policies">
+<h1>2.2.7. Task 6 – Review F5 WAF Configurations and Policies<a class="headerlink" href="#task-6-review-f5-waf-configurations-and-policies" title="Permalink to this headline">¶</a></h1>
+<p>Take this time to review the various components that are automatically
+provisioned as part of the Azure Security Center.</p>
+<ol class="arabic">
 <li><p class="first">Click on the Resource Group that deployed the F5 WAF</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">It will be named wordpress-asc…</p>
 </div>
-<a class="reference internal image-reference" href="../../_images/image75.png"><img alt="../../_images/image75.png" src="../../_images/image75.png" style="width: 648.0px; height: 384.0px;" /></a>
 </li>
-<li><p class="first">Click on <strong>Public IP address</strong></p>
-<a class="reference internal image-reference" href="../../_images/image76.png"><img alt="../../_images/image76.png" src="../../_images/image76.png" style="width: 647.0px; height: 386.5px;" /></a>
+<li><p class="first">Click on <strong>Public IP address</strong> for the F5 device</p>
+<img alt="../../_images/lab02-waf10.png" src="../../_images/lab02-waf10.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Remember the F5 public IP address. This will be used in
 subsequent steps.</p>
 </div>
-<a class="reference internal image-reference" href="../../_images/image77.png"><img alt="../../_images/image77.png" src="../../_images/image77.png" style="width: 601.0px; height: 245.0px;" /></a>
+<img alt="../../_images/lab02-waf11.png" src="../../_images/lab02-waf11.png" />
 </li>
-<li><p class="first">Open a web browser and go to the BIG-IP GUI at https://&lt;Public-IP:8443&gt;
+<li><p class="first">Open a web browser and go to the BIG-IP GUI at https://&lt;F5-Public-IP&gt;
 to see when the platform completes the deployment</p>
 </li>
-<li><p class="first">Login as admin and use the password you entered during the WAF
+<li><p class="first">Login as admin (or azureuser) and use the password you entered during the WAF
 deployment process.</p>
-<a class="reference internal image-reference" href="../../_images/image78.png"><img alt="../../_images/image78.png" src="../../_images/image78.png" style="width: 675.0px; height: 425.0px;" /></a>
+<img alt="../../_images/lab02-waf12.png" src="../../_images/lab02-waf12.png" />
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">The deployment takes time. If you observe it from the GUI,
@@ -770,34 +781,83 @@ Once the Virtual Server is created, the setup of F5 WAF is complete.</p>
 </div>
 </li>
 <li><p class="first">Review the F5 configurations by first going to <strong>LTM -&gt; Virtual Servers</strong></p>
+<img alt="../../_images/lab02-waf13.png" src="../../_images/lab02-waf13.png" />
+</li>
+<li><p class="first">Notice that the Azure Security Center WAF deployment automatically created
+the required virtual server</p>
+</li>
+<li><p class="first">Select the virtual server to view properties</p>
+</li>
+<li><p class="first">Review the various settings on the “Properties” tab</p>
+</li>
+<li><p class="first">Then select the “Resources” tab</p>
+</li>
+<li><p class="first">Notice the pool has been automatically created and added</p>
+</li>
+<li><p class="first">Also notice the <strong>Policies</strong> section has a <em>Local Traffic Policy</em> assigned.
+This will direct traffic of interest to the WAF policy on the F5.</p>
+<img alt="../../_images/lab02-waf14.png" src="../../_images/lab02-waf14.png" />
 </li>
 <li><p class="first">Review the <strong>LTM -&gt; Pools</strong></p>
+<img alt="../../_images/lab02-waf15.png" src="../../_images/lab02-waf15.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This pool contains the public IP address of the WordPress server you initially
+created in the earlier section of this lab.</p>
+</div>
+</li>
+<li><p class="first">Notice that the Azure Security Center WAF deployment automatically created
+the required pools</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If you look more closely, you’ll realize that the Azure Security Center actually
+deployed the F5 base provisioning, downloaded the WAF policy, and then ran a
+declarative call to automate the provisioning of all required F5 L4-L7 services
+using F5 iApps.</p>
+</div>
+<p>Time permitting, go explore the iApps in the F5 GUI under <strong>iApps -&gt; Application Services</strong>.
+You can also review the F5 Application Security Manager (ASM = WAF) section under
+<strong>Security -&gt; Application Security</strong>.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-6-demonstrate-f5-waf-blocking-functionality">
-<h1>2.2.7. Task 6 – Demonstrate F5 WAF blocking functionality<a class="headerlink" href="#task-6-demonstrate-f5-waf-blocking-functionality" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-7-demonstrate-f5-waf-blocking-functionality">
+<h1>2.2.8. Task 7 – Demonstrate F5 WAF blocking functionality<a class="headerlink" href="#task-7-demonstrate-f5-waf-blocking-functionality" title="Permalink to this headline">¶</a></h1>
 <p>As part of the WAF deployment, a new F5 VIP (virtual IP/listener) has been
 configured for the WordPress application that sits behind an Azure NAT rule.
 Additionally, a base WAF policy has been configured automaticaly for
-the application.</p>
-<p>To test the WAF policy, you will repeat the SQL injection attack from
-a previous lab against the WordPress application. However this time you
-will access the WordPress application through the F5 protected WAF policy.</p>
+the application. To test the WAF policy, you will repeat the SQL injection
+attack from a previous lab against the WordPress application. However this
+time you will access the WordPress application through the F5 protected WAF policy.</p>
+<p>First, you need to identify the public IP address for the Azure load balancer.</p>
 <ol class="arabic">
-<li><p class="first">Open a web browser and go to http://&lt;F5-public-IP&gt;</p>
+<li><p class="first">Click on the Resource Group that deployed the F5 WAF</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">It will be named wordpress-asc…</p>
+</div>
+<img alt="../../_images/lab02-waf16.png" src="../../_images/lab02-waf16.png" />
+</li>
+<li><p class="first">Copy the <strong>Public IP address</strong> for the Azure load balancer device</p>
+<img alt="../../_images/lab02-waf17.png" src="../../_images/lab02-waf17.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>The public IP address is the same IP address used to access
-the BIG-IP. The Azure NATs found within the Azure load balancer (ALB)
+<p class="last">Remember the Azure LB public IP address. This will be used in
+subsequent steps.</p>
+</div>
+</li>
+<li><p class="first">Open a web browser and go to http://&lt;azure-lb-public-ip&gt;</p>
+<img alt="../../_images/lab02-waf18.png" src="../../_images/lab02-waf18.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The Azure NATs found within the Azure load balancer (ALB)
 control the NAT decisions. This allows proper traffic direction
 depending on if it is F5 management traffic or client/server traffic.</p>
-<p class="last">Essentially, we have deployed the F5 WAF in single-nic mode.
-Azure LB can only send traffic to the first network interface of a VM
-instance. The F5 WAF security solution therefore runs a single IP that
-accepts management traffic as well as client/server traffic based on
-traffic received at the Azure LB NAT.</p>
+<p class="last">If you want to explore the Azure load balancer NAT and load balancer
+rules, then stay on the Load Balancer page and review the various settings.
+Now would be a good time to raise hands for any questions.</p>
 </div>
+<p>Let’s proceed with an attack through the F5!</p>
 </li>
 <li><p class="first">Navigate to the <strong>Search</strong> box. You can do this via two methods:</p>
 <ul class="simple">
@@ -821,7 +881,7 @@ application from this SQL injection attack.</p>
 <a class="reference internal image-reference" href="../../_images/image80.png"><img alt="../../_images/image80.png" src="../../_images/image80.png" style="width: 645.0px; height: 220.5px;" /></a>
 </li>
 <li><p class="first">Open another web browser and go to the BIG-IP GUI at
-https://&lt;F5-public-IP:8443&gt;</p>
+https://&lt;F5-public-IP&gt;</p>
 </li>
 <li><p class="first">Go to <strong>Security -&gt; Event Logs -&gt; Application -&gt; Requests</strong></p>
 <a class="reference internal image-reference" href="../../_images/image81.png"><img alt="../../_images/image81.png" src="../../_images/image81.png" style="width: 831.0px; height: 649.0px;" /></a>
@@ -843,12 +903,12 @@ and protect the WordPress application.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-7-finalize-the-waf-deployment">
-<h1>2.2.8. Task 7 – Finalize the WAF Deployment<a class="headerlink" href="#task-7-finalize-the-waf-deployment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-8-finalize-the-waf-deployment">
+<h1>2.2.9. Task 8 – Finalize the WAF Deployment<a class="headerlink" href="#task-8-finalize-the-waf-deployment" title="Permalink to this headline">¶</a></h1>
 <p>Now that you have successfully tested the path to WordPress through the
 F5 BIG-IP, you need to finalize the WAF deployment. Currently access
 still works direct to the WordPress application via public IP address
-http://&lt;wordpress-public-IP as demonstrated in Task 1 of this lab.
+http://&lt;wordpress-public-IP&gt; as demonstrated in Task 1 of this lab.
 Finalizing the WAF deployment will eliminate the ability to access
 the WordPress application directly. Access to the WordPress
 application will only be available through the F5 BIG-IP.</p>
@@ -867,16 +927,50 @@ Center</p>
 <li><p class="first">Click on the WordPress application</p>
 <a class="reference internal image-reference" href="../../_images/image87.png"><img alt="../../_images/image87.png" src="../../_images/image87.png" style="width: 625.0px; height: 180.0px;" /></a>
 </li>
-<li><p class="first">Check <strong>I updated my DNS record</strong> and click <strong>Restrict traffic</strong></p>
-<a class="reference internal image-reference" href="../../_images/image88.png"><img alt="../../_images/image88.png" src="../../_images/image88.png" style="width: 628.0px; height: 572.0px;" /></a>
+<li><p class="first">You will be presented a message stating to complete the remaining tasks
+via the <em>Solutions Center</em>.</p>
+<img alt="../../_images/lab02-waf19.png" src="../../_images/lab02-waf19.png" />
+</li>
+<li><p class="first">Click <strong>OK</strong></p>
+</li>
+<li><p class="first">Go back to Azure Security Center and select <strong>Security solutions</strong></p>
+<img alt="../../_images/lab02-waf20.png" src="../../_images/lab02-waf20.png" />
+</li>
+<li><p class="first">In the “Connected solutions”, choose your WAF by selecting <strong>View</strong></p>
+</li>
+<li><p class="first">On the next screen, select your WAF instance and then choose <strong>Finalize application protection</strong></p>
+<img alt="../../_images/lab02-waf21.png" src="../../_images/lab02-waf21.png" />
+</li>
+<li><p class="first">On the “Finalize application protection” screen, select your WAF instance</p>
+<img alt="../../_images/lab02-waf22.png" src="../../_images/lab02-waf22.png" />
+</li>
+<li><p class="first">Read the message and perform the necessary actions</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>At this point, you need to take some type of action outside of Azure Security
+Center. In this case, you need to update the WordPress instance’s network security
+group to restrict the inbound HTTP/HTTPS access to only the F5 (if doing single 1-nic)
+deployment or the Azure LB public IP (if doing multiple-nic deployment).</p>
+<p class="last">Now is a good time to raise your hand with questions.</p>
+</div>
+</li>
+<li><p class="first">When done, refresh the <strong>Security solutions</strong> page again</p>
+</li>
+<li><p class="first">Notice the health of the solution is now green</p>
+<img alt="../../_images/lab02-waf23.png" src="../../_images/lab02-waf23.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In a production environment you would first want to update your DNS
-records to point to the new BIG-IP VIP.</p>
+<p>If the health status is still red, then please review the NSG linked to the WordPress
+instance. Come back to the Solutions center and finalize the WAF again.</p>
+<p class="last">Also, after some time the solution will disappear once there is no more action to take.
+This is a good sign that the finalization tasks are complete.</p>
 </div>
-<p>The process takes a couple minutes. When complete, now you can
-verify access has been restricted and WordPress is no longer
-directly accessible through the original WordPress public IP.</p>
+</li>
+<li><p class="first">Once all actions are perfomed (e.g. lock down NSG), then go back to Azure Security Center</p>
+</li>
+<li><p class="first">View <strong>Recommendations</strong> again and notice that “Finalize application protection” for your
+WAF instance is marked as <em>Resolved</em></p>
+<img alt="../../_images/lab02-waf24.png" src="../../_images/lab02-waf24.png" />
 </li>
 <li><p class="first">Open a web browser and go to http://&lt;wordpress-public-IP&gt;</p>
 </li>

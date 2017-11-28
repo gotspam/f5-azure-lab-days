@@ -324,7 +324,6 @@ of your WordPress application.
    +-----------------------+-------------------------------------------------+
 
    .. image:: /_static/lab02-waf02.png
-      :scale: 50 %
 
 #. Click **OK**
 
@@ -348,7 +347,6 @@ of your WordPress application.
    +------------------------+-------------------------------------+
 
    .. image:: /_static/lab02-waf03.png
-      :scale: 50 %
 
 #. Click **OK**
 
@@ -366,19 +364,19 @@ of your WordPress application.
    +------------------------+---------------------------------------------+
 
    .. image:: /_static/lab02-waf04.png
-      :scale: 50 %
 
 #. Select **Configure Subnets**
 #. Leave all options as default on the "Subnets" page
 
    .. image:: /_static/lab02-waf05.png
-      :scale: 50 %
+
+   .. Note::
+      This will create a 3-nic F5 instance.
 
 #. Click **OK** to go back to the "Network Settings" page.
 #. Notice the "Subnets" field will change to *Review subnet configuration*.
 
    .. image:: /_static/lab02-waf06.png
-      :scale: 50 %
 
    .. Note::
       There is no need to hit **Review subnet configuration**. This simply means
@@ -400,58 +398,54 @@ of your WordPress application.
    +----------------------------------------+----------------------------------------+
 
    .. image:: /_static/lab02-waf07.png
-      :scale: 50 %
 
 #. Click **OK** to proceed to the next page
 #. Review the "Summary Page". You should receive **Validation passed**
 
    .. image:: /_static/lab02-waf08.png
-      :scale: 50 %
 
 #. Click **OK** to proceed to the next page
 #. Review the "Terms and use" page
 
    .. image:: /_static/lab02-waf09-top.png
-      :scale: 50 %
 
 #. Scroll down to review the remaining "Terms and use" page
 #. Supply your email and phone number for validation
 
    .. image:: /_static/lab02-waf09-bottom.png
-      :scale: 50 %
 
 #. Click **Create**
 
    .. Note::
       Deployment time can take up to 30 minutes.
 
+Task 6 – Review F5 WAF Configurations and Policies
+--------------------------------------------------
+
+Take this time to review the various components that are automatically
+provisioned as part of the Azure Security Center.
+
 #. Click on the Resource Group that deployed the F5 WAF
 
    .. Hint::
       It will be named wordpress-asc…
 
-   .. image:: /_static/image75.png
-      :scale: 50 %
+#. Click on **Public IP address** for the F5 device
 
-#. Click on **Public IP address**
-
-   .. image:: /_static/image76.png
-      :scale: 50 %
+   .. image:: /_static/lab02-waf10.png
 
    .. Note::
       Remember the F5 public IP address. This will be used in
       subsequent steps.
 
-   .. image:: /_static/image77.png
-      :scale: 50 %
+   .. image:: /_static/lab02-waf11.png
 
-#. Open a web browser and go to the BIG-IP GUI at \https://<Public-IP:8443>
+#. Open a web browser and go to the BIG-IP GUI at \https://<F5-Public-IP>
    to see when the platform completes the deployment
-#. Login as admin and use the password you entered during the WAF
+#. Login as admin (or azureuser) and use the password you entered during the WAF
    deployment process.
 
-   .. image:: /_static/image78.png
-      :scale: 50 %
+   .. image:: /_static/lab02-waf12.png
 
    .. WARNING::
       The deployment takes time. If you observe it from the GUI,
@@ -461,33 +455,82 @@ of your WordPress application.
       Once the Virtual Server is created, the setup of F5 WAF is complete.
 
 #. Review the F5 configurations by first going to **LTM -> Virtual Servers**
+
+   .. image:: /_static/lab02-waf13.png
+
+#. Notice that the Azure Security Center WAF deployment automatically created
+   the required virtual server
+#. Select the virtual server to view properties
+#. Review the various settings on the "Properties" tab
+#. Then select the "Resources" tab
+#. Notice the pool has been automatically created and added
+#. Also notice the **Policies** section has a *Local Traffic Policy* assigned.
+   This will direct traffic of interest to the WAF policy on the F5.
+
+   .. image:: /_static/lab02-waf14.png
+
 #. Review the **LTM -> Pools**
 
-Task 6 – Demonstrate F5 WAF blocking functionality
+   .. image:: /_static/lab02-waf15.png
+
+   .. Note::
+      This pool contains the public IP address of the WordPress server you initially
+      created in the earlier section of this lab.
+
+#. Notice that the Azure Security Center WAF deployment automatically created
+   the required pools
+
+   .. Hint::
+      If you look more closely, you'll realize that the Azure Security Center actually
+      deployed the F5 base provisioning, downloaded the WAF policy, and then ran a
+      declarative call to automate the provisioning of all required F5 L4-L7 services
+      using F5 iApps.
+
+   Time permitting, go explore the iApps in the F5 GUI under **iApps -> Application Services**.
+   You can also review the F5 Application Security Manager (ASM = WAF) section under
+   **Security -> Application Security**.
+
+Task 7 – Demonstrate F5 WAF blocking functionality
 --------------------------------------------------
 
 As part of the WAF deployment, a new F5 VIP (virtual IP/listener) has been
 configured for the WordPress application that sits behind an Azure NAT rule.
 Additionally, a base WAF policy has been configured automaticaly for
-the application.
+the application. To test the WAF policy, you will repeat the SQL injection
+attack from a previous lab against the WordPress application. However this
+time you will access the WordPress application through the F5 protected WAF policy.
 
-To test the WAF policy, you will repeat the SQL injection attack from
-a previous lab against the WordPress application. However this time you
-will access the WordPress application through the F5 protected WAF policy.
+First, you need to identify the public IP address for the Azure load balancer.
 
-#. Open a web browser and go to \http://<F5-public-IP>
+#. Click on the Resource Group that deployed the F5 WAF
+
+   .. Hint::
+      It will be named wordpress-asc…
+
+   .. image:: /_static/lab02-waf16.png
+
+#. Copy the **Public IP address** for the Azure load balancer device
+
+   .. image:: /_static/lab02-waf17.png
 
    .. Note::
-      The public IP address is the same IP address used to access
-      the BIG-IP. The Azure NATs found within the Azure load balancer (ALB)
+      Remember the Azure LB public IP address. This will be used in
+      subsequent steps.
+
+#. Open a web browser and go to \http://<azure-lb-public-ip>
+
+   .. image:: /_static/lab02-waf18.png
+
+   .. Note::
+      The Azure NATs found within the Azure load balancer (ALB)
       control the NAT decisions. This allows proper traffic direction
       depending on if it is F5 management traffic or client/server traffic.
 
-      Essentially, we have deployed the F5 WAF in single-nic mode.
-      Azure LB can only send traffic to the first network interface of a VM
-      instance. The F5 WAF security solution therefore runs a single IP that
-      accepts management traffic as well as client/server traffic based on
-      traffic received at the Azure LB NAT.
+      If you want to explore the Azure load balancer NAT and load balancer
+      rules, then stay on the Load Balancer page and review the various settings.
+      Now would be a good time to raise hands for any questions.
+
+   Let's proceed with an attack through the F5!
 
 #. Navigate to the **Search** box. You can do this via two methods:
 
@@ -512,7 +555,7 @@ will access the WordPress application through the F5 protected WAF policy.
       :scale: 50 %
 
 #. Open another web browser and go to the BIG-IP GUI at
-   \https://<F5-public-IP:8443>
+   \https://<F5-public-IP>
 #. Go to **Security -> Event Logs -> Application -> Requests**
 
    .. image:: /_static/image81.png
@@ -538,13 +581,13 @@ will access the WordPress application through the F5 protected WAF policy.
       The F5 WAF has successfully detected the SQL injection attack
       and protect the WordPress application.
 
-Task 7 – Finalize the WAF Deployment
+Task 8 – Finalize the WAF Deployment
 ------------------------------------
 
 Now that you have successfully tested the path to WordPress through the
 F5 BIG-IP, you need to finalize the WAF deployment. Currently access
 still works direct to the WordPress application via public IP address
-\http://<wordpress-public-IP as demonstrated in Task 1 of this lab.
+\http://<wordpress-public-IP> as demonstrated in Task 1 of this lab.
 Finalizing the WAF deployment will eliminate the ability to access
 the WordPress application directly. Access to the WordPress
 application will only be available through the F5 BIG-IP.
@@ -567,18 +610,52 @@ application will only be available through the F5 BIG-IP.
    .. image:: /_static/image87.png
       :scale: 50 %
 
-#. Check **I updated my DNS record** and click **Restrict traffic**
+#. You will be presented a message stating to complete the remaining tasks
+   via the *Solutions Center*.
 
-   .. image:: /_static/image88.png
-      :scale: 50 %
+   .. image:: /_static/lab02-waf19.png
+
+#. Click **OK**
+#. Go back to Azure Security Center and select **Security solutions**
+
+   .. image:: /_static/lab02-waf20.png
+
+#. In the "Connected solutions", choose your WAF by selecting **View**
+#. On the next screen, select your WAF instance and then choose **Finalize application protection**
+
+   .. image:: /_static/lab02-waf21.png
+
+#. On the "Finalize application protection" screen, select your WAF instance
+
+   .. image:: /_static/lab02-waf22.png
+
+#. Read the message and perform the necessary actions
+
+   .. Hint::
+      At this point, you need to take some type of action outside of Azure Security
+      Center. In this case, you need to update the WordPress instance's network security
+      group to restrict the inbound HTTP/HTTPS access to only the F5 (if doing single 1-nic)
+      deployment or the Azure LB public IP (if doing multiple-nic deployment).
+
+      Now is a good time to raise your hand with questions.
+
+#. When done, refresh the **Security solutions** page again
+#. Notice the health of the solution is now green
+
+   .. image:: /_static/lab02-waf23.png
 
    .. Note::
-      In a production environment you would first want to update your DNS
-      records to point to the new BIG-IP VIP.
+      If the health status is still red, then please review the NSG linked to the WordPress
+      instance. Come back to the Solutions center and finalize the WAF again.
 
-   The process takes a couple minutes. When complete, now you can
-   verify access has been restricted and WordPress is no longer
-   directly accessible through the original WordPress public IP.
+      Also, after some time the solution will disappear once there is no more action to take.
+      This is a good sign that the finalization tasks are complete.
+
+#. Once all actions are perfomed (e.g. lock down NSG), then go back to Azure Security Center
+#. View **Recommendations** again and notice that "Finalize application protection" for your
+   WAF instance is marked as *Resolved*
+
+   .. image:: /_static/lab02-waf24.png
 
 #. Open a web browser and go to \http://<wordpress-public-IP>
 #. Notice that the page no longer loads
