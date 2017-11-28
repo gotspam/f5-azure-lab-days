@@ -522,6 +522,10 @@ to the Microsoft Azure Portal.
       the Azure load balancer, then hit the F5 virtual server on port 8081,
       then load balance to the WordPress server.
 
+#. Click **OK** to complete the rule and to review the results
+
+   .. image:: /_static/lab03-arm10.png
+
    To verify proper functionality, let's browse the site and
    verify F5 statistics.
 
