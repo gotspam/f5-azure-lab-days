@@ -115,7 +115,7 @@ the Microsoft Azure Portal.
    +-------------+------------+
    | Key         | Value      |
    +=============+============+
-   | Disk Type   | HHD        |
+   | Disk Type   | HDD        |
    +-------------+------------+
    | Size        | A1 Basic   |
    +-------------+------------+
@@ -139,7 +139,7 @@ the Microsoft Azure Portal.
    +---------------------+---------+
    | Key                 | Value   |
    +=====================+=========+
-   | Storage Type        | HHD     |
+   | Storage Type        | HDD     |
    +---------------------+---------+
    | Use managed disks   | No      |
    +---------------------+---------+
