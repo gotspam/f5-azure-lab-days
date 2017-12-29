@@ -555,7 +555,7 @@ the Microsoft Azure Portal.
       Remember the WordPress public IP address. This will be used in
       subsequent steps.
 
-   We now want to configure the WordPress system to accept HTTPS traffic only.
+   Go ahead and test access to the WordPress public IP with SSH and HTTPS.
 
 #. SSH to the WordPress public IP address
 
@@ -583,39 +583,6 @@ the Microsoft Azure Portal.
 
    .. image:: /_static/image8.png
       :scale: 50 %
-
-#. Modify the wp-config.php file with a text editor (e.g. vim)
-
-   .. code-block:: bash
-
-      sudo vim /opt/bitnami/apps/wordpress/htdocs/wp-config.php
-
-#. In the vim editor, type ``/SITEURL`` to search and jump to the
-   2 lines you need to modify.
-
-   .. Note::
-      The "/" followed by text will do a "Find" function. You are
-      essentially trying to find references of SITEURL. The lines
-      you are going to modify are the following two lines:
-
-      define('WP_SITEURL', '\http://' . $_SERVER['HTTP_HOST'] . '/');
-
-      define('WP_HOME', '\http://' . $_SERVER['HTTP_HOST'] . '/');
-
-#. Type “i” to enter “edit/insert mode” in the vim editor
-#. Change http to https. The end results should look as follows:
-
-   .. image:: /_static/image41.png
-      :scale: 50 %
-
-#. Hit the **Escape** key
-#. Then type the key sequence **:wq** to tell vim to quit
-#. Hit **Enter** when asked to save and exit
-#. Restart Apache for the changes to take effect
-
-   .. code-block:: bash
-
-      sudo /opt/bitnami/ctlscript.sh restart apache
 
 #. Verify that \https://<WordPress-Public-IP> displays the
    Wordpress blog
