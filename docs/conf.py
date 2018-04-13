@@ -8,7 +8,7 @@
 classname = "Azure F5 Lab Days"
 
 # OPTIONAL: The URL to the GitHub Repository for this class
-github_repo = "https://github.com/JeffGiroux/azure-f5-lab-days"
+github_repo = "https://github.com/gotspam/f5-azure-lab-days"
 
 # OPTIONAL: Google Analytics
 # googleanalytics_id = 'UA-85156643-4'
@@ -256,6 +256,3 @@ texinfo_documents = [
      author, classname, classname,
      'Training'),
 ]
-
-
-
