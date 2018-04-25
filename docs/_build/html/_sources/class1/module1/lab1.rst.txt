@@ -1,16 +1,5 @@
-Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure
-------------------------------------------------------------------------------
-
-This lab will teach you how to manually install a |bip| |ve| in your Azure cloud environment.
-
-Lab 1 – Topology
-~~~~~~~~~~~~~~~~
-
-   .. image:: /_static/lab-1-topology.png
-      :scale: 50 %
-
-Task 1 – Create an SSH Key Pair
--------------------------------
+Task – Create an SSH Key Pair
+-----------------------------
 
 Before you begin the deployment process, you first need to generate an
 SSH Key Pair which will be used for authentication to the F5 BIG-IPs in
@@ -67,8 +56,8 @@ Example public RSA key Windows:
    In future steps, making a connection to WordPress or |bip| via SSH will
    use the private key in PuTTY for authentication.
 
-Task 2 – Deploy a new F5 BIG-IP VE in Azure
--------------------------------------------
+Task – Deploy a new F5 BIG-IP VE in Azure
+-----------------------------------------
 
 In this task you will deploy a new Azure Resource Group, F5 BIG-IP VE,
 and other supporting configuration items. Below is a list of items
@@ -213,8 +202,8 @@ Let's get started.
 
 #. Click **Purchase** or **Create**
 
-Task 3 – Allow management and HTTP access to the BIG-IP
--------------------------------------------------------
+Task – Allow management and HTTP access to the BIG-IP
+-----------------------------------------------------
 
 In this task you will permit management access and HTTPS access to the
 BIG-IP by modifying the Network Security Group “Inbound” network access
@@ -310,8 +299,8 @@ rule set.
    .. image:: /_static/image22.png
       :scale: 50 %
 
-Task 4 – License and Apply Base BIG-IP Configuration
-----------------------------------------------------
+Task – License and Apply Base BIG-IP Configuration
+--------------------------------------------------
 
 In this task you will connect to the BIG-IP CLI and GUI, license the
 device, and complete a base configuration. First, you need to identify
@@ -371,6 +360,8 @@ the BIG-IP's public IP address to which you will connect.
    .. image:: /_static/image8.png
       :scale: 50 %
 
+#. Type ``bash`` then enter.
+
 #. License your F5 BIG-IP by typing ``SOAPLicenseClient --basekey <license>``
 
    Example:
@@ -396,7 +387,7 @@ the BIG-IP's public IP address to which you will connect.
 #. Change the password for f5bigipuserx and replace x with the
    number assigned by your proctor
 
-   .. admonition:: TMSH 
+   .. admonition:: TMSH
 
       tmsh modify auth user f5bigipuserx password Demo123
 
@@ -417,7 +408,7 @@ the BIG-IP's public IP address to which you will connect.
 
 #. Save the system configuration
 
-   .. admonition:: TMSH 
+   .. admonition:: TMSH
 
       tmsh save sys config
 
@@ -436,8 +427,8 @@ the BIG-IP's public IP address to which you will connect.
 
 #. Click **Log in**
 
-Task 5 – Deploy and configure WordPress within Azure
-----------------------------------------------------
+Task – Deploy and configure WordPress within Azure
+--------------------------------------------------
 
 In this task you will deploy another virtual machine and install the
 WordPress application to be placed behind the BIG-IP. Let's go back to
@@ -495,7 +486,7 @@ the Microsoft Azure Portal.
    +-------------+------------+
    | Key         | Value      |
    +=============+============+
-   | Disk Type   | HDD        |
+   | Disk Type   | All        |
    +-------------+------------+
    | Size        | A1 Basic   |
    +-------------+------------+
@@ -625,8 +616,8 @@ the Microsoft Azure Portal.
    .. image:: /_static/image46.png
       :scale: 50 %
 
-Task 6 – Allow Internet access to WordPress through the BIG-IP
---------------------------------------------------------------
+Task – Allow Internet access to WordPress through the BIG-IP
+------------------------------------------------------------
 
 In this task you will configure the BIG-IP with a Virtual Server and
 Pool to allow inbound Internet access to the WordPress application. First we
@@ -739,6 +730,23 @@ back to the Microsoft Azure Portal.
 
    .. image:: /_static/image55.png
       :scale: 50 %
+
+
+Task – Lab 1 Teardown
+---------------------
+Please revoke BIG-IP license for reuse in next lab then delete lab resource group.
+
+#. Revoke BIG-IP license for resuse in next lab.
+
+   - From BIG-IP GUI select **System -> License** then select **revoke**.
+
+#. Delete resource group **f5bigipuser<student number>usergroup** created earlier in this lab.
+
+   - From Azure Portal select **Resource Group**
+   - Select **...** on right side of the resource group created earlier
+   - Select **delete**.  You will be prompted to enter resource again for confirmation.
+
+#. Enter resource group name when prompted for resource group to be deleted.
 
    .. image:: /_static/image56.gif
       :scale: 50 %

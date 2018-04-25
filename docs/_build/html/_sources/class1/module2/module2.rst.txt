@@ -8,6 +8,10 @@ assist in the automation of F5 WAF deployment and protection of your
 applications. In this lab, you will create a WordPress server and
 protect it with the F5 WAF.
 
+**Lab 2 – Topology**
+
+.. image:: /_static/lab-2-topology.png
+
 .. toctree::
    :maxdepth: 1
    :glob:

@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template" href="lab1.html" />
-    <link rel="prev" title="2.2.10. Lab – Power-on the BIG-IP Appliance" href="../module2/lab2.html" />
+    <link rel="next" title="2.3.1. Task – Deploy an ARM template" href="lab1.html" />
+    <link rel="prev" title="2.2.1. Task – Setup basic cloud components in Azure" href="../module2/lab1.html" />
 <!--
 # Copyright 2017 F5 Networks
 #
@@ -213,7 +213,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class1.html">2. Class - Azure F5 Lab Days</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
@@ -221,11 +221,11 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../module2/lab2.html"
-                        title="previous chapter">2.2.10. Lab – Power-on the BIG-IP Appliance</a></p>
+  <p class="topless"><a href="../module2/lab1.html"
+                        title="previous chapter">2.2.1. Task – Setup basic cloud components in Azure</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="lab1.html"
-                        title="next chapter">2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template</a></p>
+                        title="next chapter">2.3.1. Task – Deploy an ARM template</a></p>
         
       </div>
       <div class="col-md-offset-3 col-sm-offset-3 main">
@@ -240,15 +240,30 @@
 in Azure using the Azure Resource Manager (ARM) templates. ARM templates
 automate many of the deployment steps and ensure a validated topology
 and configuration of your F5 BIG-IP instances within Azure.</p>
+<p>To see a list of all F5 Azure ARM templates, go to
+<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates">https://github.com/F5Networks/f5-azure-arm-templates</a>. Take your time
+to review the README.md.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The supported templates are fully supported by F5, and customers
+can call for issues. The experimental folder contains other
+template options.</p>
+</div>
+<p>For this lab, we will be using a template from the following location:</p>
+<p><a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/failover-lb/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/failover-lb/1nic/new_stack</a></p>
+<p>It’s recommended to review the README.md on this page as well to become
+familiar with the template, prerequisites, topology, and more.
+<strong>Lab 3 – Topology</strong></p>
+<img alt="../../_images/lab-3-topology.png" src="../../_images/lab-3-topology.png" />
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html">2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-1-deploy-an-arm-template">2.3.2. Task 1 – Deploy an ARM template</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-2-review-results-of-arm-template">2.3.3. Task 2 – Review Results of ARM Template</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-3-deploy-and-configure-wordpress-within-azure">2.3.4. Task 3 – Deploy and configure WordPress within Azure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">2.3.5. Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only">2.3.6. Task 5 – Restrict access to WordPress through the F5 BIG-IP only</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-6-test-ha-within-azure">2.3.7. Task 6 – Test HA within Azure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">2.3.1. Task – Deploy an ARM template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-review-results-of-arm-template">2.3.2. Task – Review Results of ARM Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-deploy-wordpress">2.3.3. Task – Deploy WordPress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">2.3.4. Task – Configure an F5 BIG-IP Pool and VIP for the WordPress application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-restrict-access-to-wordpress-through-the-f5-big-ip-only">2.3.5. Task – Restrict access to WordPress through the F5 BIG-IP only</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-test-ha-within-azure">2.3.6. Task – Test HA within Azure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-lab-3-teardown">2.3.7. Task – Lab 3 Teardown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html#appendix-troubleshooting">2.3.8. Appendix – Troubleshooting</a></li>
 </ul>
 </div>
@@ -259,10 +274,10 @@ and configuration of your F5 BIG-IP instances within Azure.</p>
 		     <div class="row next-prev-btn-row">
            <div class="col-lg-12">
            
-		        <a href="../module2/lab2.html" title="2.2.10. Lab – Power-on the BIG-IP Appliance" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
+		        <a href="../module2/lab1.html" title="2.2.1. Task – Setup basic cloud components in Azure" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
            
            
-              <a href="lab1.html" title="2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              <a href="lab1.html" title="2.3.1. Task – Deploy an ARM template" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
            
 		     </div>
          </div>

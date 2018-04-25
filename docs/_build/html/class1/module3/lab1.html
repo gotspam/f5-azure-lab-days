@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template &#8212; Azure F5 Lab Days  documentation</title>
+    <title>2.3.1. Task – Deploy an ARM template &#8212; Azure F5 Lab Days  documentation</title>
     
     <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -211,16 +211,13 @@
    <span class="caption-text">Current Page</span>
   </p>
   <ul>
-<li><a class="reference internal" href="#">2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template</a><ul>
-<li><a class="reference internal" href="#lab-3-topology">2.3.1.1. Lab 3 – Topology</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#task-1-deploy-an-arm-template">2.3.2. Task 1 – Deploy an ARM template</a></li>
-<li><a class="reference internal" href="#task-2-review-results-of-arm-template">2.3.3. Task 2 – Review Results of ARM Template</a></li>
-<li><a class="reference internal" href="#task-3-deploy-and-configure-wordpress-within-azure">2.3.4. Task 3 – Deploy and configure WordPress within Azure</a></li>
-<li><a class="reference internal" href="#task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">2.3.5. Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application</a></li>
-<li><a class="reference internal" href="#task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only">2.3.6. Task 5 – Restrict access to WordPress through the F5 BIG-IP only</a></li>
-<li><a class="reference internal" href="#task-6-test-ha-within-azure">2.3.7. Task 6 – Test HA within Azure</a></li>
+<li><a class="reference internal" href="#">2.3.1. Task – Deploy an ARM template</a></li>
+<li><a class="reference internal" href="#task-review-results-of-arm-template">2.3.2. Task – Review Results of ARM Template</a></li>
+<li><a class="reference internal" href="#task-deploy-wordpress">2.3.3. Task – Deploy WordPress</a></li>
+<li><a class="reference internal" href="#task-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">2.3.4. Task – Configure an F5 BIG-IP Pool and VIP for the WordPress application</a></li>
+<li><a class="reference internal" href="#task-restrict-access-to-wordpress-through-the-f5-big-ip-only">2.3.5. Task – Restrict access to WordPress through the F5 BIG-IP only</a></li>
+<li><a class="reference internal" href="#task-test-ha-within-azure">2.3.6. Task – Test HA within Azure</a></li>
+<li><a class="reference internal" href="#task-lab-3-teardown">2.3.7. Task – Lab 3 Teardown</a></li>
 <li><a class="reference internal" href="#appendix-troubleshooting">2.3.8. Appendix – Troubleshooting</a></li>
 </ul>
 
@@ -229,7 +226,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class1.html">2. Class - Azure F5 Lab Days</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/module1.html">2.1. Module – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="module3.html">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
@@ -247,33 +244,8 @@
           <span class="right"><a href="../../genindex.html">Index</a></span>
         </h4>
         
-  <div class="section" id="lab-3-deploy-an-ha-pair-of-f5-big-ip-in-azure-using-an-arm-template">
-<h1>2.3.1. Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template<a class="headerlink" href="#lab-3-deploy-an-ha-pair-of-f5-big-ip-in-azure-using-an-arm-template" title="Permalink to this headline">¶</a></h1>
-<p>In this step you will be deploying the F5 BIG-IP via an ARM template.
-F5 offers a wide variety of ARM templates for various deployment
-scenarios and licensing options. There are supported and experimental
-templates. This lab will use a template from the supported folder to
-do all the heavy lifting.</p>
-<p>To see a list of all F5 Azure ARM templates, go to
-<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates">https://github.com/F5Networks/f5-azure-arm-templates</a>. Take your time
-to review the README.md.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">The supported templates are fully supported by F5, and customers
-can call for issues. The experimental folder contains other
-template options.</p>
-</div>
-<p>For this lab, we will be using a template from the following location:</p>
-<p><a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack</a></p>
-<p>It’s recommended to review the README.md on this page as well to become
-familiar with the template, prerequisites, topology, and more.</p>
-<div class="section" id="lab-3-topology">
-<h2>2.3.1.1. Lab 3 – Topology<a class="headerlink" href="#lab-3-topology" title="Permalink to this headline">¶</a></h2>
-<img alt="../../_images/lab-3-topology.png" src="../../_images/lab-3-topology.png" />
-</div>
-</div>
-<div class="section" id="task-1-deploy-an-arm-template">
-<h1>2.3.2. Task 1 – Deploy an ARM template<a class="headerlink" href="#task-1-deploy-an-arm-template" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="task-deploy-an-arm-template">
+<h1>2.3.1. Task – Deploy an ARM template<a class="headerlink" href="#task-deploy-an-arm-template" title="Permalink to this headline">¶</a></h1>
 <p>This task will walk through a series of steps in order to choose
 and deploy an ARM template in the Azure Portal. Let’s start by
 going to the Azure Portal.</p>
@@ -284,7 +256,7 @@ going to the Azure Portal.</p>
 <li><p class="first">Keep the browser window open</p>
 </li>
 <li><p class="first">Open a new browser and go to
-<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack</a></p>
+<a class="reference external" href="https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/failover-lb/1nic/new_stack">https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/failover-lb/1nic/new_stack</a></p>
 </li>
 <li><p class="first">Scroll down to the README.md section and click <strong>Installation</strong></p>
 <a class="reference internal image-reference" href="../../_images/lab3-image002.png"><img alt="../../_images/lab3-image002.png" src="../../_images/lab3-image002.png" style="width: 450.0px; height: 238.0px;" /></a>
@@ -378,8 +350,8 @@ by using F5 sync groups.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-2-review-results-of-arm-template">
-<h1>2.3.3. Task 2 – Review Results of ARM Template<a class="headerlink" href="#task-2-review-results-of-arm-template" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-review-results-of-arm-template">
+<h1>2.3.2. Task – Review Results of ARM Template<a class="headerlink" href="#task-review-results-of-arm-template" title="Permalink to this headline">¶</a></h1>
 <p>In the previous task, you used an ARM template to automate the deployment
 of F5 instances and Azure networking components. Now is a good time to
 review other pieces that were created by the ARM template. Let’s go back
@@ -517,8 +489,8 @@ service ports. In our case, the service ports are 8443 and 8444.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-3-deploy-and-configure-wordpress-within-azure">
-<h1>2.3.4. Task 3 – Deploy and configure WordPress within Azure<a class="headerlink" href="#task-3-deploy-and-configure-wordpress-within-azure" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-deploy-wordpress">
+<h1>2.3.3. Task – Deploy WordPress<a class="headerlink" href="#task-deploy-wordpress" title="Permalink to this headline">¶</a></h1>
 <p>In this task you will deploy another virtual machine and install the
 WordPress application to be placed behind the BIG-IP. Let’s go back to
 the Microsoft Azure Portal.</p>
@@ -667,8 +639,8 @@ in subsequent steps.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">
-<h1>2.3.5. Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application<a class="headerlink" href="#task-4-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application">
+<h1>2.3.4. Task – Configure an F5 BIG-IP Pool and VIP for the WordPress application<a class="headerlink" href="#task-configure-an-f5-big-ip-pool-and-vip-for-the-wordpress-application" title="Permalink to this headline">¶</a></h1>
 <p>In this task you will configure the BIG-IP with a Virtual Server and
 Pool to allow inbound Internet access to the WordPress application. Let’s go back
 to the Microsoft Azure Portal.</p>
@@ -724,7 +696,7 @@ in Table 3.7 below leaving all other fields set to defaults.</p>
 </ul>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<p class="last">The Azure Load Balancer NATs HTTPS traffic 80 -&gt; <strong>8081</strong>. This is why
+<p class="last">The Azure Load Balancer NATs HTTP traffic 80 -&gt; <strong>8081</strong>. This is why
 the F5 virtual server you will create below listens on port 8081.</p>
 </div>
 <p>Now that the pool is created, you need a virtual server to accept traffic
@@ -864,8 +836,8 @@ application. There are still some Azure tasks to complete.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only">
-<h1>2.3.6. Task 5 – Restrict access to WordPress through the F5 BIG-IP only<a class="headerlink" href="#task-5-restrict-access-to-wordpress-through-the-f5-big-ip-only" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-restrict-access-to-wordpress-through-the-f5-big-ip-only">
+<h1>2.3.5. Task – Restrict access to WordPress through the F5 BIG-IP only<a class="headerlink" href="#task-restrict-access-to-wordpress-through-the-f5-big-ip-only" title="Permalink to this headline">¶</a></h1>
 <p>This task involves locking down the network security group to restrict
 access to the WordPress application. We only want to allow access
 through the F5. Currently access still works direct to the WordPress
@@ -908,8 +880,8 @@ through the F5. However, traffic should fail if going direct to WordPress.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="task-6-test-ha-within-azure">
-<h1>2.3.7. Task 6 – Test HA within Azure<a class="headerlink" href="#task-6-test-ha-within-azure" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-test-ha-within-azure">
+<h1>2.3.6. Task – Test HA within Azure<a class="headerlink" href="#task-test-ha-within-azure" title="Permalink to this headline">¶</a></h1>
 <p>In this task you will perform a system failover and validate that the
 WordPress application remains available.</p>
 <ol class="arabic">
@@ -974,6 +946,26 @@ test WordPress again.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Can you access the site now? Check that http://&lt;public-IP&gt; is available.</p>
 </div>
+</li>
+</ol>
+</div>
+<div class="section" id="task-lab-3-teardown">
+<h1>2.3.7. Task – Lab 3 Teardown<a class="headerlink" href="#task-lab-3-teardown" title="Permalink to this headline">¶</a></h1>
+<p>Please revoke BIG-IP license for reuse in next lab then delete lab resource group.</p>
+<ol class="arabic">
+<li><p class="first">Revoke BIG-IP license for resuse in next lab.</p>
+<ul class="simple">
+<li>From BIG-IP GUI select <strong>System -&gt; License</strong> then select <strong>revoke</strong>.</li>
+</ul>
+</li>
+<li><p class="first">Delete resource group <strong>bigipuser&lt;student number&gt;-aa</strong> and created earlier in this lab.</p>
+<ul class="simple">
+<li>From Azure Portal select <strong>Resource Group</strong></li>
+<li>Select <strong>…</strong> on right side of the resource group created earlier</li>
+<li>Select <strong>delete</strong>.  You will be prompted to enter resource again for confirmation.</li>
+</ul>
+</li>
+<li><p class="first">Enter resource group name when prompted for resource group to be deleted.</p>
 <a class="reference internal image-reference" href="../../_images/image56.gif"><img alt="../../_images/image56.gif" src="../../_images/image56.gif" style="width: 93.5px; height: 93.5px;" /></a>
 </li>
 </ol>

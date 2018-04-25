@@ -1,35 +1,5 @@
-Lab 3 – Deploy an HA Pair of F5 BIG-IP in Azure Using an ARM Template
----------------------------------------------------------------------
-
-In this step you will be deploying the F5 BIG-IP via an ARM template.
-F5 offers a wide variety of ARM templates for various deployment
-scenarios and licensing options. There are supported and experimental
-templates. This lab will use a template from the supported folder to
-do all the heavy lifting.
-
-To see a list of all F5 Azure ARM templates, go to
-https://github.com/F5Networks/f5-azure-arm-templates. Take your time
-to review the README.md.
-
-.. Tip::
-   The supported templates are fully supported by F5, and customers
-   can call for issues. The experimental folder contains other
-   template options.
-
-For this lab, we will be using a template from the following location:
-
-https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack
-
-It's recommended to review the README.md on this page as well to become
-familiar with the template, prerequisites, topology, and more.
-
-Lab 3 – Topology
-~~~~~~~~~~~~~~~~
-
-.. image:: /_static/lab-3-topology.png
-
-Task 1 – Deploy an ARM template 
--------------------------------
+Task – Deploy an ARM template
+-----------------------------
 
 This task will walk through a series of steps in order to choose
 and deploy an ARM template in the Azure Portal. Let's start by
@@ -42,7 +12,7 @@ going to the Azure Portal.
 
 #. Keep the browser window open
 #. Open a new browser and go to
-   https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/1nic/new_stack
+   https://github.com/F5Networks/f5-azure-arm-templates/tree/master/supported/cluster/failover-lb/1nic/new_stack
 #. Scroll down to the README.md section and click **Installation**
 
    .. image:: /_static/lab3-image002.png
@@ -124,7 +94,7 @@ going to the Azure Portal.
       assisted with placing an ALB in front of the F5 instances and also
       by using F5 sync groups.
 
-Task 2 – Review Results of ARM Template
+Task – Review Results of ARM Template
 ---------------------------------------
 
 In the previous task, you used an ARM template to automate the deployment
@@ -191,7 +161,7 @@ to the Azure Portal.
    +--------------------------+---------------------------------+
 
    .. image:: /_static/lab03-arm02.png
-   
+
 #. Scroll down and select **OK** and the results will show one new health probe
 
    .. image:: /_static/lab03-arm03.png
@@ -254,8 +224,8 @@ to the Azure Portal.
    .. image:: /_static/image119.png
       :scale: 50 %
 
-Task 3 – Deploy and configure WordPress within Azure
-----------------------------------------------------
+Task – Deploy WordPress
+-----------------------
 
 In this task you will deploy another virtual machine and install the
 WordPress application to be placed behind the BIG-IP. Let's go back to
@@ -380,7 +350,7 @@ the Microsoft Azure Portal.
    .. image:: /_static/image01-wordpress.png
       :scale: 50 %
 
-Task 4 – Configure an F5 BIG-IP Pool and VIP for the WordPress application
+Task – Configure an F5 BIG-IP Pool and VIP for the WordPress application
 --------------------------------------------------------------------------
 
 In this task you will configure the BIG-IP with a Virtual Server and
@@ -426,7 +396,7 @@ to the Microsoft Azure Portal.
    - Verify that new pool "wordpress_pool" is successfully synced
 
    .. Hint::
-      The Azure Load Balancer NATs HTTPS traffic 80 -> **8081**. This is why
+      The Azure Load Balancer NATs HTTP traffic 80 -> **8081**. This is why
       the F5 virtual server you will create below listens on port 8081.
 
    Now that the pool is created, you need a virtual server to accept traffic
@@ -545,7 +515,7 @@ to the Microsoft Azure Portal.
    You have now completed the BIG-IP configuration for the WordPress
    application. There are still some Azure tasks to complete.
 
-Task 5 – Restrict access to WordPress through the F5 BIG-IP only
+Task – Restrict access to WordPress through the F5 BIG-IP only
 ----------------------------------------------------------------
 
 This task involves locking down the network security group to restrict
@@ -590,7 +560,7 @@ WordPress application. Let's go back to the Azure Portal.
       WordPress application as a pool member. Traffic should flow successfully
       through the F5. However, traffic should fail if going direct to WordPress.
 
-Task 6 – Test HA within Azure
+Task – Test HA within Azure
 -----------------------------
 
 In this task you will perform a system failover and validate that the
@@ -631,7 +601,7 @@ WordPress application remains available.
    - Select **bigip0.azure.local (Self)**
    - Scroll to the bottom of the page
    - Click **Force Offline**
- 
+
    .. Note::
       Were you able to access WordPress?
 
@@ -652,6 +622,23 @@ WordPress application remains available.
 
    .. Note::
       Can you access the site now? Check that \http://<public-IP> is available.
+
+Task – Lab 3 Teardown
+---------------------
+
+Please revoke BIG-IP license for reuse in next lab then delete lab resource group.
+
+#. Revoke BIG-IP license for resuse in next lab.
+
+   - From BIG-IP GUI select **System -> License** then select **revoke**.
+
+#. Delete resource group **bigipuser<student number>-aa** and created earlier in this lab.
+
+   - From Azure Portal select **Resource Group**
+   - Select **...** on right side of the resource group created earlier
+   - Select **delete**.  You will be prompted to enter resource again for confirmation.
+
+#. Enter resource group name when prompted for resource group to be deleted.
 
    .. image:: /_static/image56.gif
       :scale: 50 %

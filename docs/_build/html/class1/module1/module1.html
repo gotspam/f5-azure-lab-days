@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure &#8212; Azure F5 Lab Days  documentation</title>
+    <title>2.1. Module – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure &#8212; Azure F5 Lab Days  documentation</title>
     
     <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.1.1. Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure" href="lab1.html" />
+    <link rel="next" title="2.1.1. Task – Create an SSH Key Pair" href="lab1.html" />
     <link rel="prev" title="2. Class - Azure F5 Lab Days" href="../class1.html" />
 <!--
 # Copyright 2017 F5 Networks
@@ -213,7 +213,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../class1.html">2. Class - Azure F5 Lab Days</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. Module – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module2/module2.html">2.2. Module 2 – Deploy an F5 Web Application Firewall Using the Azure Security Center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../module3/module3.html">2.3. Module 3 – Deploy an F5 BIG-IP Active/Active HA Pair Using ARM Templates</a></li>
 </ul>
@@ -225,7 +225,7 @@
                         title="previous chapter">2. Class - Azure F5 Lab Days</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="lab1.html"
-                        title="next chapter">2.1.1. Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></p>
+                        title="next chapter">2.1.1. Task – Create an SSH Key Pair</a></p>
         
       </div>
       <div class="col-md-offset-3 col-sm-offset-3 main">
@@ -234,24 +234,25 @@
           <span class="right"><a href="../../genindex.html">Index</a></span>
         </h4>
         
-  <div class="section" id="module-1-deploy-a-standalone-f5-big-ip-application-delivery-controller-in-azure">
-<h1>2.1. Module 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure<a class="headerlink" href="#module-1-deploy-a-standalone-f5-big-ip-application-delivery-controller-in-azure" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-deploy-a-standalone-f5-big-ip-application-delivery-controller-in-azure">
+<h1>2.1. Module – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure<a class="headerlink" href="#module-deploy-a-standalone-f5-big-ip-application-delivery-controller-in-azure" title="Permalink to this headline">¶</a></h1>
 <p>In this lab you will be deploying a standalone F5 BIG-IP in Azure to sit
 in front of an instance of WordPress. The old-fashioned way (e.g. manual) will
 be used in order to build out the environment and the F5. A later lab will
 utilize orchestration to help automate the process. For this lab, it’s important
 to understand the fundamentals and what goes behind deploying an F5 in the cloud
 in addition to the actual cloud components (e.g. networks, security groups, VMs).</p>
+<p><strong>Lab 1 – Topology</strong></p>
+<a class="reference internal image-reference" href="../../_images/lab-1-topology.png"><img alt="../../_images/lab-1-topology.png" src="../../_images/lab-1-topology.png" style="width: 454.5px; height: 251.0px;" /></a>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html">2.1.1. Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-1-create-an-ssh-key-pair">2.1.2. Task 1 – Create an SSH Key Pair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-2-deploy-a-new-f5-big-ip-ve-in-azure">2.1.3. Task 2 – Deploy a new F5 BIG-IP VE in Azure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-3-allow-management-and-http-access-to-the-big-ip">2.1.4. Task 3 – Allow management and HTTP access to the BIG-IP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-4-license-and-apply-base-big-ip-configuration">2.1.5. Task 4 – License and Apply Base BIG-IP Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-5-deploy-and-configure-wordpress-within-azure">2.1.6. Task 5 – Deploy and configure WordPress within Azure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-6-allow-internet-access-to-wordpress-through-the-big-ip">2.1.7. Task 6 – Allow Internet access to WordPress through the BIG-IP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">2.1.8. Lab – Install a BIG-IP Virtual Edition image on a Hypervisor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">2.1.1. Task – Create an SSH Key Pair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-deploy-a-new-f5-big-ip-ve-in-azure">2.1.2. Task – Deploy a new F5 BIG-IP VE in Azure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-allow-management-and-http-access-to-the-big-ip">2.1.3. Task – Allow management and HTTP access to the BIG-IP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-license-and-apply-base-big-ip-configuration">2.1.4. Task – License and Apply Base BIG-IP Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-deploy-and-configure-wordpress-within-azure">2.1.5. Task – Deploy and configure WordPress within Azure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-allow-internet-access-to-wordpress-through-the-big-ip">2.1.6. Task – Allow Internet access to WordPress through the BIG-IP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html#task-lab-1-teardown">2.1.7. Task – Lab 1 Teardown</a></li>
 </ul>
 </div>
 </div>
@@ -264,7 +265,7 @@ in addition to the actual cloud components (e.g. networks, security groups, VMs)
 		        <a href="../class1.html" title="2. Class - Azure F5 Lab Days" accesskey="p" class="btn btn-primary pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</a>
            
            
-              <a href="lab1.html" title="2.1.1. Lab 1 – Deploy a Standalone F5 BIG-IP Application Delivery Controller in Azure" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+              <a href="lab1.html" title="2.1.1. Task – Create an SSH Key Pair" accesskey="n" class="btn btn-primary pull-right">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
            
 		     </div>
          </div>

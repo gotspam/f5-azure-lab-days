@@ -1,22 +1,5 @@
-Lab 2 – Deploy an F5 Web Application Firewall using the Azure Security Center
---------------------------------------------------------------------------------
-
-This lab will teach you how to deploy a WordPress server in Azure and protect
-the application with an F5 WAF via the Azure Security Center (ASC). The ASC
-will automatically discover vulnerabilities within your Azure resources. Things
-like publicly accessible IPs listening on HTTP and HTTPS will be flagged in
-ASC and marked for review. The customer can take action which can include
-deployment of a WAF. Therefore, we'll expose a WordPress server and let
-ASC find the problem for us. After a few questions and answers, a WAF will be
-deployed automatically.
-
-Lab 2 – Topology
-~~~~~~~~~~~~~~~~
-
-   .. image:: /_static/lab-2-topology.png
-
-Task 1 – Setup basic cloud components in Azure
-----------------------------------------------
+Task – Setup basic cloud components in Azure
+--------------------------------------------
 
 Basic cloud components are needed first. Things like Virtual Networks and
 Resource Groups are required prior to deployment of virtual machines.
@@ -56,8 +39,8 @@ deployment.
 
 #. Click **Create**
 
-Task 2 – Deploy and configure WordPress within Azure
-----------------------------------------------------
+Task – Deploy WordPress within Azure
+------------------------------------
 
 In this task you will deploy another virtual machine and install the
 WordPress application to be placed behind the BIG-IP. Let's go back to
@@ -173,13 +156,13 @@ the Microsoft Azure Portal.
 
    .. Note::
       Remember the WordPress public IP address. This will be used in
-      subsequent steps.
+      subsequent steps.  This can take 10min before page loads.
 
-Task 3 – Access WordPress instance and launch a SQL Injection attack
---------------------------------------------------------------------
+Task – Access WordPress instance and launch a SQL Injection attack
+------------------------------------------------------------------
 
 The next task involves testing the application and checking for open
-vulernabilities. You will need to access your WordPress instance and
+vulnerabilities. You will need to access your WordPress instance and
 launch a simple SQL Injection attack.
 
 #. Open a web browser and navigate to \http://<wordpress-public-IP>
@@ -187,7 +170,7 @@ launch a simple SQL Injection attack.
 
    - Scrolling down the page with the browser scroll bars
    - Or...
-     
+
      - Click the **X** in the lower right corner of the screen
      - Close the **Manage** link
      - Click the arrow in bottom right corner of the screen
@@ -215,32 +198,8 @@ launch a simple SQL Injection attack.
       content of a given file present on the DBMS file system, and in
       some cases issue commands to the operating system.
 
-Task 4 – Accept EULA for F5 WAF in Azure Marketplace
-----------------------------------------------------------------------
-
-Prior to using Azure Security Center or other Marketplace items, you must
-enable that particular item in Azure Marketplace (e.g. accept EULA). In
-this task you will go to the Azure Marketplace and enable **the F5 WAF Solution for ASC**.
-
-.. Note::
-   If you have already performed this step in your Azure account,
-   then you can skip this task and move to the next task.
-
-#. Open a browser and go to https://azuremarketplace.microsoft.com/en-us/marketplace/apps/f5-networks.f5-web-application-firewall 
-
-   .. image:: /_static/image64.png
-      :scale: 50 %
-
-#. Click **GET IT NOW**
-#. Complete the sign in process using the email address used to set
-   up your account.
-#. Accept the EULA by clicking **Continue**
-
-   .. image:: /_static/image65.png
-      :scale: 50 %
-
-Task 5 – Launch Azure Security Center and deploy the F5 WAF
-----------------------------------------------------------------------
+Task – Launch Azure Security Center and deploy the F5 WAF
+---------------------------------------------------------
 
 Among other things, Azure Security Center (ASC) makes recommendations to
 optimize and secure your web applications. You will now follow the
@@ -251,7 +210,6 @@ of your WordPress application.
    Center.
 
    .. image:: /_static/image66.png
-      :scale: 50 %
 
 #. Click on **Security Center -> Welcome**
 #. Click **Launch Security Center** and notice that ASC has recommendations
@@ -284,25 +242,9 @@ of your WordPress application.
    .. image:: /_static/image69.png
       :scale: 50 %
 
-#. Select **F5 Networks**
+#. Select **F5 WAF Solution - BYOL**
 
    .. image:: /_static/image70.png
-      :scale: 50 %
-
-   .. Note::
-      There are two deployment methods available today for the
-      pre-configured F5 WAF:
-
-      - “Automatically provisioned”
-      - “Semi-automatically provisioned”
-
-      For this lab you will be using the **“Semi-automatically provisioned”** method.
-      The former will most likely be depracated. The latter, semi-automatically provisioned,
-      gives the user more control in the deployment.
-
-#. Select the option for **Semi-automatically provisioned**
-
-   .. image:: /_static/lab02-waf01.png
       :scale: 50 %
 
 #. Click **Create**
@@ -418,8 +360,8 @@ of your WordPress application.
    .. Note::
       Deployment time can take up to 30 minutes.
 
-Task 6 – Review F5 WAF Configurations and Policies
---------------------------------------------------
+Task – Review F5 WAF Configurations and Policies
+------------------------------------------------
 
 Take this time to review the various components that are automatically
 provisioned as part of the Azure Security Center.
@@ -489,8 +431,8 @@ provisioned as part of the Azure Security Center.
    You can also review the F5 Application Security Manager (ASM = WAF) section under
    **Security -> Application Security**.
 
-Task 7 – Demonstrate F5 WAF blocking functionality
---------------------------------------------------
+Task – Demonstrate F5 WAF blocking functionality
+------------------------------------------------
 
 As part of the WAF deployment, a new F5 VIP (virtual IP/listener) has been
 configured for the WordPress application that sits behind an Azure NAT rule.
@@ -535,7 +477,7 @@ First, you need to identify the public IP address for the Azure load balancer.
 
    - Scrolling down the page with the browser scroll bars
    - Or...
-     
+
      - Click the **X** in the lower right corner of the screen
      - Close the **Manage** link
      - Click the arrow in bottom right corner of the screen
@@ -566,22 +508,17 @@ First, you need to identify the public IP address for the Azure load balancer.
    .. image:: /_static/image82.png
       :scale: 50 %
 
-#. Click on **Attack signature detected**
+#. Click on **Attack signature detected** to see details
 
    .. image:: /_static/image83.png
-      :scale: 50 %
-
-#. Click on **View details...**
-
-   .. image:: /_static/image84.png
       :scale: 50 %
 
    .. Note::
       The F5 WAF has successfully detected the SQL injection attack
       and protect the WordPress application.
 
-Task 8 – Finalize the WAF Deployment
-------------------------------------
+Task – Finalize the WAF Deployment
+----------------------------------
 
 Now that you have successfully tested the path to WordPress through the
 F5 BIG-IP, you need to finalize the WAF deployment. Currently access
@@ -670,6 +607,23 @@ application will only be available through the F5 BIG-IP.
    .. ATTENTION::
       Testing WordPress by going through the F5 should successfully load.
       Testing WordPress IP directly should fail.
+
+Task – Lab 2 Teardown
+---------------------
+
+Please revoke BIG-IP license for reuse in next lab then delete lab resource group.
+
+#. Revoke BIG-IP license for resuse in next lab.
+
+   - From BIG-IP GUI select **System -> License** then select **revoke**.
+
+#. Delete resource group **wordpress** and **wordpress-acs<student number>** created earlier in this lab.
+
+   - From Azure Portal select **Resource Group**
+   - Select **...** on right side of the resource group created earlier
+   - Select **delete**.  You will be prompted to enter resource again for confirmation.
+
+#. Enter resource group name when prompted for resource group to be deleted.
 
    .. image:: /_static/image56.gif
       :scale: 50 %
