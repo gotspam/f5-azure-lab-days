@@ -352,7 +352,7 @@ the BIG-IP's public IP address to which you will connect.
    **Connectivity for Windows Users:**
 
    - Open PuTTY
-   - Enter the public IP
+   - Enter the ''f5bigipuser<Student Number>@<F5BIG-IP public IP>''
    - Go to **Connection -> SSH -> Auth**
    - Browse to the location of your private key
    - Select **Open** to start the connection
@@ -360,7 +360,7 @@ the BIG-IP's public IP address to which you will connect.
    .. image:: /_static/image8.png
       :scale: 50 %
 
-#. Type ``bash`` then enter.
+#. Type **bash** then hit enter.
 
 #. License your F5 BIG-IP by typing ``SOAPLicenseClient --basekey <license>``
 
