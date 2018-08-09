@@ -73,25 +73,26 @@ created during this step.
 
 Let's get started.
 
-#. Log into the portal – https://portal.azure.com
+#. Log into the portal – https://portal.azure.com using the student## account assigned.
+
+   .. image:: /_static/image008.png
+      :height: 50px
+
 #. Click the green **+** sign at the top left corner of the screen
-#. Search the marketplace by typing 'F5' in the search field and hit **Enter**.
+#. Search the marketplace by typing 'F5 Better' in the search field and hit **Enter**.
    Take your time to view the different F5 products available.
 
 #. Click **F5 BIG-IP ADC BETTER – BYOL**
 
    .. image:: /_static/image9.png
-      :scale: 50 %
+      :height: 50px
 
    .. NOTE::
       An appropriate license is delivered by your lab proctor. The proctor
       will explain why you use **BYOL** in this lab.
 
 #. At the bottom of the next page, selected **Resource Manager** as the
-   deployment model and not **Classic**
-
-   .. image:: /_static/image10.png
-      :scale: 50 %
+   deployment model
 
 #. Click **Create**
 
@@ -129,7 +130,7 @@ Let's get started.
    Example:
 
    .. image:: /_static/image11.png
-      :scale: 50 %
+      :height: 400px
 
 #. Once done, click **OK**
 
@@ -150,16 +151,11 @@ Let's get started.
    | Size        | D2\_V2 Standard   |
    +-------------+-------------------+
 
-#. Select **HDD** from “Supported disk type”
-#. Then select **View all** to browse the available VM sizes and features
-
-   .. image:: /_static/image12.png
-      :scale: 50 %
-
+#. Search **D2** from “Choose a size”
 #. Select **D2\_V2 Standard**
 
    .. image:: /_static/image13.png
-      :scale: 50 %
+      :height: 300px
 
 #. Click **Select**
 
@@ -176,13 +172,14 @@ Let's get started.
    +---------------------+---------+
    | Use managed disks   | No      |
    +---------------------+---------+
-
+   | Public Inbound ports| HTTPS   |
+   +---------------------+---------+
 #. Under Settings, change "Disk type" to **HDD** and "Use managed disk" to **No**
 
    Look around at the various configurable items but leave them unchanged.
 
    .. image:: /_static/image14.png
-      :scale: 50 %
+      :height: 300px
 
 #. Once done, click **OK**
 #. Review the "Summary" page and the purchase you are about to make
@@ -194,13 +191,14 @@ Let's get started.
       -  Notice the VM where the BIG-IP VE will reside is charged
 
    .. image:: /_static/image15-top.png
-      :scale: 50 %
+      :height: 300px
 
 #. Supply your email and phone number for validation
 
    .. image:: /_static/lab-instance-validation.png
+      :height: 200px
 
-#. Click **Purchase** or **Create**
+#. Click **Create**
 
 Task – Allow management and HTTP access to the BIG-IP
 -----------------------------------------------------
@@ -212,18 +210,18 @@ rule set.
 #. Go to **Resource groups**
 
    .. image:: /_static/image16.png
-      :scale: 50 %
+      :height: 200px
 
 #. Expand your Resource group and select the Network security group
 
    .. image:: /_static/image17.png
-      :scale: 50 %
+      :height: 200px
 
 #. Review the existing ruleset. Notice that you only have an inbound
    rule allowing SSH.
 
    .. image:: /_static/image18.png
-      :scale: 50 %
+      :height: 200px
 
    Now you will add rules to allow HTTPS for F5 BIG-IP management and
    data plane by clicking on “Inbound security rules”
@@ -232,7 +230,7 @@ rule set.
 #. Click **Inbound security rules**
 
    .. image:: /_static/image19.png
-      :scale: 50 %
+      :height: 200px
 
 #. Click **+ Add**
 

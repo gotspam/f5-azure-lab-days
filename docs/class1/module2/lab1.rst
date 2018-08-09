@@ -18,24 +18,24 @@ deployment.
 
    Table 2.1
 
-   +-----------------------+------------------------------+
-   | Key                   | Value                        |
-   +=======================+==============================+
-   | Name                  | user<student number>_vnet    |
-   +-----------------------+------------------------------+
-   | Address space         | 10.10.0.0/16                 |
-   +-----------------------+------------------------------+
-   | Subscription          | <User Unique>                |
-   +-----------------------+------------------------------+
-   | Resource group        | Create new: wordpress        |
-   +-----------------------+------------------------------+
-   | Location              | <Closest Azure DC>           |
-   +-----------------------+------------------------------+
-   | Address Range         | 10.10.0.0/22                 |
-   +-----------------------+------------------------------+
+   +-----------------------+---------------------------------------+
+   | Key                   | Value                                 |
+   +=======================+=======================================+
+   | Name                  | user<student number>_vnet             |
+   +-----------------------+---------------------------------------+
+   | Address space         | 10.10.0.0/16                          |
+   +-----------------------+---------------------------------------+
+   | Subscription          | <User Unique>                         |
+   +-----------------------+---------------------------------------+
+   | Resource group        | Create new: wordpress<student number> |
+   +-----------------------+---------------------------------------+
+   | Location              | <Closest Azure DC>                    |
+   +-----------------------+---------------------------------------+
+   | Address Range         | 10.10.0.0/22                          |
+   +-----------------------+---------------------------------------+
 
    .. image:: /_static/image58.png
-      :scale: 50 %
+      :height: 400px
 
 #. Click **Create**
 
@@ -80,7 +80,7 @@ the Microsoft Azure Portal.
    +-----------------------+-------------------------------------------------+
    | Subscription          | <User Unique>                                   |
    +-----------------------+-------------------------------------------------+
-   | Resource Group        | Use existing: wordpress                         |
+   | Resource Group        | Use existing: wordpress<student number>         |
    +-----------------------+-------------------------------------------------+
    | Location              | <Closest Azure DC>                              |
    +-----------------------+-------------------------------------------------+
@@ -106,7 +106,7 @@ the Microsoft Azure Portal.
 #. Choose **A1 Basic**
 
    .. image:: /_static/image35.png
-      :scale: 50 %
+      :height: 300px
 
 #. Click **Select**
 
@@ -210,6 +210,7 @@ of your WordPress application.
    Center.
 
    .. image:: /_static/image66.png
+      :height: 300px
 
 #. Click on **Security Center -> Welcome**
 #. Click **Launch Security Center** and notice that ASC has recommendations
@@ -245,7 +246,7 @@ of your WordPress application.
 #. Select **F5 WAF Solution - BYOL**
 
    .. image:: /_static/image70.png
-      :scale: 50 %
+      :height: 100px
 
 #. Click **Create**
 
@@ -265,6 +266,7 @@ of your WordPress application.
    +-----------------------+-------------------------------------------------+
 
    .. image:: /_static/lab02-waf02.png
+      :height: 300px
 
 #. Click **OK**
 
@@ -305,30 +307,37 @@ of your WordPress application.
    +------------------------+---------------------------------------------+
 
    .. image:: /_static/lab02-waf04.png
+      :height: 450px
 
 #. Select **Configure Subnets**
-#. Leave all options as default on the "Subnets" page
+   Use the information in Table 2.8 to complete the “Network Settings” page
+   during this deployment. Leave all other options as default.
+
+   Table 2.8
+
+   +------------------------+---------------------------------------------+
+   | Key                    | Value                                       |
+   +========================+=============================================+
+   | Management Subnet      | 10.0.<student number>.0/26                  |
+   +------------------------+---------------------------------------------+
+   | External Subnet        | 10.0.<student number>.64/26                 |
+   +------------------------+---------------------------------------------+
+   | Internal Subnet        | 10.0.<student number>.128/26                |
+   +------------------------+---------------------------------------------+
+
 
    .. image:: /_static/lab02-waf05.png
+      :height: 400px
 
    .. Note::
       This will create a 3-nic F5 instance.
 
-#. Click **OK** to go back to the "Network Settings" page.
-#. Notice the "Subnets" field will change to *Review subnet configuration*.
+#. Click **OK**
 
-   .. image:: /_static/lab02-waf06.png
-
-   .. Note::
-      There is no need to hit **Review subnet configuration**. This simply means
-      there are now subnets configured whereas before there were none.
-
-#. On the "Network Settings", click **OK** to proceed to the next page
-
-   Use the information in Table 2.8 to complete the “Application Settings” page
+   Use the information in Table 2.9 to complete the “Application Settings” page
    during this deployment. Leave all other options as default.
 
-   Table 2.8
+   Table 2.9
 
    +----------------------------------------+----------------------------------------+
    | Key                                    | Value                                  |
@@ -339,6 +348,7 @@ of your WordPress application.
    +----------------------------------------+----------------------------------------+
 
    .. image:: /_static/lab02-waf07.png
+      :height: 500px
 
 #. Click **OK** to proceed to the next page
 #. Review the "Summary Page". You should receive **Validation passed**
